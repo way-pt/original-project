@@ -10,6 +10,6 @@ fsT = FileSystemStorage(location="media/dataFiles")
 class Map(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    data = models.FileField(upload_to="media/dataFiles", storage=fsT)
-    image = models.ImageField(storage=fsI, upload_to="media/photos", null=True, blank=True)
+    data = models.FileField()
+    image = models.ImageField(null=True, blank=True)
     
