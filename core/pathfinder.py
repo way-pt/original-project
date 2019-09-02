@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw
+from pathlib import Path
 
 
 
@@ -12,12 +13,12 @@ class Point:
 
 
 
-class Map:
+class Draw:
     """
     Represents a path. Includes methods to take in elevation data, draw a map, and find paths.
     """
 
-    def __init__(self, data_file):
+    def __init__(self, data_file, pk):
         """
         @params = {
             @param data_file: txt file that contains points of elevation,
@@ -28,6 +29,7 @@ class Map:
         }
         """
         self.data_file = data_file
+        self.pk = pk
         self.data = []
         self.nest = []
         self.paths = []
@@ -35,6 +37,7 @@ class Map:
         self.columns = 0
         self.min_elevation = 0
         self.max_elevation = 0
+        self.file_path = Path("core/static/images/elevation_map_paths" + str(self.pk) + ".png")
 
     def init_data(self, file):
         self.data_file = file
@@ -145,7 +148,7 @@ class Map:
         self.get_max_min()
 
         img = Image.new('RGBA', (self.columns, self.rows), (0, 77, 64))
-        img.save("elevation_map.png")
+        img.save(self.file_path)
 
         for x in range(self.columns - 1):
             print(f"Drawing map... {int((x / self.columns) * 100)}% complete")
@@ -154,7 +157,7 @@ class Map:
                     (int((self.nest[y][x] - self.min_elevation) / (self.max_elevation - self.min_elevation) * 255)), 
                     (int((self.nest[y][x] - self.min_elevation) / (self.max_elevation - self.min_elevation) * 255)), 
                     (int((self.nest[y][x] - self.min_elevation) / (self.max_elevation - self.min_elevation) * 255))))
-        img.save("elevation_map.png")
+        img.save(self.file_path)
 
 
         draw = ImageDraw.Draw(img)
@@ -164,8 +167,8 @@ class Map:
         draw.line(self.path_least_change(), fill=(244, 67, 54), width=2)
         print("Done.")
         print(" ")
-        print("Map saved at elevation_map_paths.png")
+        print("Map saved at " + str(self.file_path))
 
-        img.save("elevation_map_paths.png")
+        img.save(self.file_path, format="png")
 
-        return img
+        return self.file_path
