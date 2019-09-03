@@ -101,12 +101,12 @@ class GenerateMap(APIView):
     parser_classes = [FileUploadParser]
 
     def post(self, request, filename, format=None):
-        name = request.data['name']
+        # name = request.data['name']
         data_file = request.data['file']
-        file = open(data_file, 'r')
-
-        new_map = Map.objects.create(name=name)
-        new_map.data.save(name='data' + str(new_map.pk) + '.txt', content=File(file))
+        # file = open(Path(data_file, 'r'))
+        file = data_file.open()
+        new_map = Map.objects.create()
+        new_map.data.save(name='data' + str(new_map.pk) + '.txt', content=file)
         
         test_map = Draw(file, new_map.pk)
         file_path = test_map.draw_map()

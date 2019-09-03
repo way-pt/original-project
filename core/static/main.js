@@ -25,17 +25,20 @@ if (fileUpload) {
                 let name = mapNameInput.value;
                 let dataFileURL = URL.createObjectURL(dataFile);
                 formData.append('name', name);
-                formData.append('data', dataFileURL);
+                formData.append('data', dataFile);
+
                 let mapDict = {
                     "name": name,
                     "file": dataFile
                 }
                 console.log(JSON.stringify(mapDict))
-                console.log(JSON.stringify(formData))
+                console.log(formData)
+                console.log(formData.has('name'))
+                console.log(formData.entries())
                 fetch(`/api/new_map/filename=${dataFile.name}`, {
                     method: 'POST',
                     headers: {
-                        "Content-Disposition": `attachment; filename=${dataFile.name}`
+                        "Content-Disposition": `form-data;name=name; filename=${dataFile.name}`
                     },
                     body: formData
                 }).then(res => res.text())
