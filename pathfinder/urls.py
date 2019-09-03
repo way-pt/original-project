@@ -18,6 +18,7 @@ from django.conf.urls import url
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.decorators.csrf import csrf_exempt
 
 from core import views
 
@@ -27,5 +28,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     # path('new_map/', views.new_map, name='new-map'),
     path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),
-    path('api/new_map/', views.generate_new_map, name='api-new'),
+    path('api/new_map/', csrf_exempt(views.GenerateMap.as_view()), name='api-new'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

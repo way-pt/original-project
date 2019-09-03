@@ -28,14 +28,14 @@ if (fileUpload) {
                 formData.append('data', dataFileURL);
                 let mapDict = {
                     "name": name,
-                    "data": dataFile.webkitRelativePath.slice(5)
+                    "file": dataFile
                 }
                 console.log(JSON.stringify(mapDict))
                 console.log(JSON.stringify(formData))
                 fetch('/api/new_map/', {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: {
-                        // 'Accept': 'application/json',
+                        "Content-Disposition": `attachment; filename=${dataFile.name}`
                     },
                     body: formData
                 }).then(res => res.text())
