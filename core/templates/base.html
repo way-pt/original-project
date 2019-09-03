@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main.css' %}" />
+    <script src="{% static 'main.js' %}" defer></script>
     <title>Pathfinder</title>
 
 </head>
@@ -33,11 +35,35 @@
                   {% endif %}
                   </nav>
             {% block content %}
-            <a href="{% url 'new-map' %}" class="button">NEW MAP</button>
+            <div id="home"> 
+
+                <button id="new-map" type="button" class="btn btn-success">New Map</button>
+                <br>
+                <img src="{{ map.image.url }}">
+              </div> 
+
+            <div id="file-upload">
+              <h2>New Map</h2>
+              <p>Upload a .txt file with elevation data to generate a map. </p>
+
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Map Name</span>
+                  </div>
+                  <input id="map-name" type="text" class="form-control" placeholder="..." aria-label="name" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" accept=".txt" class="custom-file-input data-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                      <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary submit-map-form" type="button" id="inputGroupFileAddon04" disabled>Generate Map</button>
+                    </div>
+                  </div>
+
+            </div>
             {% endblock %}
 
-    <div>
-        <img src="{{ map.image.url }}">
-    </div>
 </body>
 </html>

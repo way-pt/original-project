@@ -25,5 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.default.urls')),
     path('', views.index, name="index"),
-    path('new_map/', views.new_map, name='new-map'),
+    # path('new_map/', views.new_map, name='new-map'),
+    path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
