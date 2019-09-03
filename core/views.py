@@ -65,7 +65,7 @@ def generate_new_map(request):
     new_map = Map.objects.create(
         name=name
     )
-    new.my_file_field.save(f.name, f, save=True)
+    new_map.my_file_field.save(f.name, f, save=True)
     new_map.data.save(name='data' + str(new_map.pk) + '.txt', content=File(file))
 
     test_map = Draw(file, new_map.pk)
