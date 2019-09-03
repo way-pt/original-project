@@ -5,6 +5,10 @@ from django.shortcuts import render
 from core.pathfinder import Draw
 from pathlib import Path
 from PIL import Image
+from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from core.serializers import MapSerializer
 
 from core.models import Map
 from core.forms import NewMapForm
@@ -34,3 +38,10 @@ def index(request):
     return render(request, "base.html", {'map': new_map})
 
  
+class AllMaps(generics.ListCreateAPIView):
+    queryset = Map.objects.all()
+    serializer_class = MapSerializer
+
+
+# @api_view(['GET', 'POST'])
+# def 
