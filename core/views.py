@@ -100,7 +100,7 @@ class AllMaps(generics.ListAPIView):
 class GenerateMap(APIView):
     parser_classes = [FileUploadParser]
 
-    def put(self, request, filename, format=None):
+    def post(self, request, filename, format=None):
         name = request.data['name']
         data_file = request.data['file']
         file = open(data_file, 'r')

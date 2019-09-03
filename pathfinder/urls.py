@@ -28,5 +28,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     # path('new_map/', views.new_map, name='new-map'),
     path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),
-    path('api/new_map/', csrf_exempt(views.GenerateMap.as_view()), name='api-new'),
+    path('api/new_map/filename=<filename>', csrf_exempt(views.GenerateMap.as_view()), name='api-new'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

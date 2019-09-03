@@ -32,8 +32,8 @@ if (fileUpload) {
                 }
                 console.log(JSON.stringify(mapDict))
                 console.log(JSON.stringify(formData))
-                fetch('/api/new_map/', {
-                    method: 'PUT',
+                fetch(`/api/new_map/filename=${dataFile.name}`, {
+                    method: 'POST',
                     headers: {
                         "Content-Disposition": `attachment; filename=${dataFile.name}`
                     },
