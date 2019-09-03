@@ -9,7 +9,7 @@ fsT = FileSystemStorage(location="media/")
 
 class Map(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, to_field='username')
     data = models.FileField(upload_to="dataFiles")
     image = models.ImageField(upload_to="photos", null=True, blank=True)
     name = models.CharField(max_length=50, help_text="A name for the map.", null=True, blank=True)

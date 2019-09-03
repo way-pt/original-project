@@ -6,5 +6,5 @@ class MapSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Map
-        fields = ['name', 'user', 'data', 'image']
+        fields = ['name', 'user', 'data', 'image', 'pk']
  

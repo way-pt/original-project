@@ -21,7 +21,27 @@ if (fileUpload) {
         if (mapNameInput.value){
             submitMapFormButton.disabled = false;
             submitMapFormButton.addEventListener('click', function () {
-                
+                var formData = new FormData();
+                let name = mapNameInput.value;
+                let dataFileURL = URL.createObjectURL(dataFile);
+                formData.append('name', name);
+                formData.append('data', dataFileURL);
+                let mapDict = {
+                    "name": name,
+                    "data": dataFile.webkitRelativePath.slice(5)
+                }
+                console.log(JSON.stringify(mapDict))
+                console.log(JSON.stringify(formData))
+                fetch('/api/new_map/', {
+                    method: 'POST',
+                    headers: {
+                        // 'Accept': 'application/json',
+                    },
+                    body: formData
+                }).then(res => res.text())
+                .then(text => console.log(text))
+                // .then(response => console.log('Success:', JSON.stringify(response)))
+                // .catch(error => console.error('Error:', error));
             })
         }
     })

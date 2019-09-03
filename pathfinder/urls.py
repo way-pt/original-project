@@ -27,4 +27,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     # path('new_map/', views.new_map, name='new-map'),
     path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),
+    path('api/new_map/', views.generate_new_map, name='api-new'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
