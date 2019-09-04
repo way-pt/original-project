@@ -50,7 +50,6 @@ class GenerateMap(APIView):
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def post(self, request, filename, format=None):
-        # name = request.data['name']
         data_file = request.data['file']
         # file = open(Path(data_file, 'r'))
         file = data_file.open(mode='r')

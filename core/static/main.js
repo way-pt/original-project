@@ -66,39 +66,35 @@ if (newMapButton && homePage) {
 }
 
 if (fileUpload) {
-    const mapNameInput = document.querySelector('#map-name');
     const dataFileInput = document.querySelector('.data-file-input');
     dataFileInput.addEventListener('change', function () {
         let dataFile = dataFileInput.files[0];
         console.log(dataFile.name);
         const submitMapFormButton = document.querySelector('.submit-map-form');
-        if (mapNameInput.value){
-            submitMapFormButton.disabled = false;
-            submitMapFormButton.addEventListener('click', function () {
-                var formData = new FormData();
-                let name = mapNameInput.value;
-                let dataFileURL = URL.createObjectURL(dataFile);
-                formData.append('name', name);
-                formData.append('data', dataFile);
+        submitMapFormButton.disabled = false;
+        submitMapFormButton.addEventListener('click', function () {
+            var formData = new FormData();
+            let dataFileURL = URL.createObjectURL(dataFile);
+            formData.append('data', dataFile);
 
-                fileUpload.style.display = 'none';
-                loadingNewMap.style.display = 'block';
-                fetch(`/api/new_map/filename=${encodeURIComponent(dataFile.name)}`, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Disposition": `form-data;name=name; filename=${dataFile.name}`
-                    },
-                    body: formData
-                }).then(res => res.json())
-                .then(function (data) {
-                    console.log(data);
-                    loadingNewMap.style.display = 'none';
-                    let imageURL = data.newMap.image;
-                    content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
-                })
+            fileUpload.style.display = 'none';
+            loadingNewMap.style.display = 'block';
+            fetch(`/api/new_map/filename=${encodeURIComponent(dataFile.name)}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Disposition": `form-data;name=name; filename=${dataFile.name}`
+                },
+                body: formData
+            }).then(res => res.json())
+            .then(function (data) {
+                console.log(data);
+                loadingNewMap.style.display = 'none';
+                let imageURL = data.newMap.image;
+                content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
+            })
                 // .then(response => console.log('Success:', JSON.stringify(response)))
                 // .catch(error => console.error('Error:', error));
-            })
-        }
+        })
     })
+    
 }

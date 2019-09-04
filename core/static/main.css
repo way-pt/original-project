@@ -1,8 +1,8 @@
 #content {
-    max-width: 100%;
+    /* max-width: 100%;
     display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: center; */
 }
 
 #file-upload {
@@ -15,5 +15,5 @@
 
 #image-view-tree {
     text-align: right;
-    
+
 }
