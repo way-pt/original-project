@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.images import ImageFile
 from django.http import HttpResponseRedirect
@@ -16,7 +18,7 @@ from rest_framework import generics, status
 from rest_framework.authentication import (BasicAuthentication,
                                            SessionAuthentication)
 from rest_framework.decorators import api_view
-from rest_framework.exceptions import ParseError
+from rest_framework.exceptions import ParseError, NotFound, ValidationError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -80,3 +82,41 @@ class GenerateMap(APIView):
             }}
             
         return Response(r, status=status.HTTP_201_CREATED)
+
+@api_view(['PATCH'])
+def save_map(request):
+    pk = request.data['pk']
+    userPK = request.data['user']
+    name = request.data['name']
+    try:
+        map_to_save = Map.objects.get(pk=pk)
+    except ObjectDoesNotExist:
+        raise NotFound({'map not found': {'pk': pk}})
+    try:
+        user = User.objects.get(pk=userPK)
+    except ObjectDoesNotExist:
+        raise NotFound({'User not found': {'pk': pk}})
+    
+    if(len(name) < 1 or len(name) > 50):
+        raise ValidationError({'Invalid name entered. Must be within 1 and 50 characters'})
+    
+    map_to_save.user = user
+    map_to_save.name = name
+    map_to_save.save()
+    user_username = user.get_username()
+    data_file_url = map_to_save.data.url
+    image_url = map_to_save.image.url
+
+    r = {'map':{
+        'name': name,
+        'user': user,
+        'user_username': user_username,
+        'data_file': data_file_url,
+        'image': image_url,
+        'date': str(map_to_save.date)
+        'pk': pk
+
+    }
+    }
+
+    return Response(r, status=status.HTTP_201_CREATED)

@@ -4,9 +4,13 @@ from core.models import Map
 
 class MapSerializer(serializers.ModelSerializer):
     user_username = serializers.SerializerMethodField()
+    img_url = serializers.SerializerMethodField()
     class Meta:
         model = Map
-        fields = ['name', 'user_username', 'user', 'data', 'image', 'pk']
+        fields = ['name', 'user_username', 'user', 'data', 'image', 'img_url', 'date', 'pk']
  
     def get_user_username(self, obj):
         return obj.user.get_username()
+
+    def get_img_url(self, obj):
+        return obj.image.url
