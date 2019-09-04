@@ -1,7 +1,13 @@
+
+// pages
 const homePage = document.querySelector('#home');
 const fileUpload = document.querySelector('#file-upload');
+const loadingNewMap = document.querySelector('#loading-new-map');
+
+// components
 const newMapButton = document.querySelector('#new-map');
 const dataFileInput = document.querySelector('.data-file-input');
+
 
 
 if (document.querySelector('#loggedIn')) {
@@ -13,6 +19,7 @@ if (document.querySelector('#loggedIn')) {
 
 
 if (newMapButton && homePage) {
+    
     newMapButton.addEventListener('click', function () {
         homePage.style.display = 'none';
         fileUpload.style.display = 'block';
@@ -43,14 +50,19 @@ if (fileUpload) {
                 console.log(formData)
                 console.log(formData.has('name'))
                 console.log(formData.entries())
+                fileUpload.style.display = 'none';
+                loadingNewMap.style.display = 'block';
                 fetch(`/api/new_map/filename=${dataFile.name}`, {
                     method: 'POST',
                     headers: {
                         "Content-Disposition": `form-data;name=name; filename=${dataFile.name}`
                     },
                     body: formData
-                }).then(res => res.text())
-                .then(text => console.log(text))
+                }).then(res => res.json())
+                .then(function (data) {
+                    console.log(data);
+                    loadingNewMap.style.display = 'none';
+                })
                 // .then(response => console.log('Success:', JSON.stringify(response)))
                 // .catch(error => console.error('Error:', error));
             })

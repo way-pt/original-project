@@ -76,8 +76,7 @@ class GenerateMap(APIView):
         usableData.close()
 
         r = {"newMap": {
-            "user": new_map.user,
-            "user_username": new_map.user.get_username(),
+            "pk": str(new_map.pk),
             "image": new_map.image.url
             }}
             

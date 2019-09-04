@@ -3,3 +3,7 @@
 #file-upload {
     display: none;
 }
+
+#loading-new-map {
+    display: none;
+}
