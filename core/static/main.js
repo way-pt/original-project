@@ -42,14 +42,6 @@ if (fileUpload) {
                 formData.append('name', name);
                 formData.append('data', dataFile);
 
-                let mapDict = {
-                    "name": name,
-                    "file": dataFile
-                }
-                console.log(JSON.stringify(mapDict))
-                console.log(formData)
-                console.log(formData.has('name'))
-                console.log(formData.entries())
                 fileUpload.style.display = 'none';
                 loadingNewMap.style.display = 'block';
                 fetch(`/api/new_map/filename=${dataFile.name}`, {
@@ -62,6 +54,8 @@ if (fileUpload) {
                 .then(function (data) {
                     console.log(data);
                     loadingNewMap.style.display = 'none';
+                    let imageURL = data.newMap.image;
+                    console.log(imageURL);
                 })
                 // .then(response => console.log('Success:', JSON.stringify(response)))
                 // .catch(error => console.error('Error:', error));
