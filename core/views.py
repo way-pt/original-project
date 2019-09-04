@@ -58,7 +58,12 @@ def latest_map(request):
 
     r = {'map' : {
         'name': latest.name,
-        'image': latest.image.url
+        'user': latest.user,
+        'data_url': latest.data.url,
+        'image': latest.image.url,
+        'date': str(latest.date),
+        'pk': latest.pk
+
     }}
     return Response(r)
 
