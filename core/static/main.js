@@ -17,6 +17,7 @@ const loadingNewMap = document.querySelector('#loading-new-map');
 // components
 const newMapButton = document.querySelector('#new-map');
 const dataFileInput = document.querySelector('.data-file-input');
+const showRecentButton = document.querySelector('#show-most-recent');
 
 // component templates
 function showGeneratedImage(url, name, username) {
@@ -44,6 +45,16 @@ function showGeneratedImage(url, name, username) {
 }
 
 
+function showMostRecent() {
+    fetch(`/api/recent_map/`).then(res => res.json())
+    .then(function (data) {
+        console.log(data);
+    })
+}
+
+
+// function prompMapSave()
+
 
 
 
@@ -54,8 +65,11 @@ if (document.querySelector('#loggedIn')) {
     console.log(copyUser)
     console.log(copyUsername)
 }
-
-
+if (showRecentButton) {
+    showRecentButton.addEventListener('click', function () {
+        showMostRecent();
+    })
+}
 
 if (newMapButton && homePage) {
     

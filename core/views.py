@@ -47,6 +47,22 @@ class AllMaps(generics.ListAPIView):
     serializer_class = MapSerializer
 
 
+class MostRecentMap(generics.ListAPIView):
+    serializer_class = MapSerializer
+    queryset = Map.objects.last()
+
+
+@api_view(['GET'])
+def latest_map(request):
+    latest = Map.objects.last()
+
+    r = {'map' : {
+        'name': latest.name,
+        'image': latest.image.url
+    }}
+    return Response(r)
+
+
 class GenerateMap(APIView):
     parser_classes = [FileUploadParser]
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
@@ -113,10 +129,8 @@ def save_map(request):
         'user_username': user_username,
         'data_file': data_file_url,
         'image': image_url,
-        'date': str(map_to_save.date)
-        'pk': pk
-
-    }
+        'date': str(map_to_save.date),
+        'pk': pk}
     }
 
     return Response(r, status=status.HTTP_201_CREATED)
