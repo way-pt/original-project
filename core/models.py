@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
@@ -13,7 +15,7 @@ class Map(models.Model):
     data = models.FileField(upload_to="dataFiles")
     image = models.ImageField(upload_to="photos", null=True, blank=True)
     name = models.CharField(max_length=50, help_text="A name for the map.", null=True, blank=True)
-
+    date = models.DateField(default=date.today, null=True, blank=True)
     # def __str__(self):
         
     #     return f'[{self.user.get_username()}] {self.name}'

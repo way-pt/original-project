@@ -1,4 +1,13 @@
 
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 // pages
 const content = document.querySelector('#content');
 const homePage = document.querySelector('#home');
@@ -22,8 +31,8 @@ function showGeneratedImage(url, name, username) {
                 <img src="${url}" class="card-img" alt="${url}">
             </div>
             <div class="col-md-4">
-                <div class="card-body image-view-tree">
-                    <h5 class="map-name text-right">${name}&#9660;</h5>
+                <div class="card-body bg-dark text-light image-view-tree">
+                    <h5 class="map-name text-right border-secondary">${name}&#9660;</h5>
                     <p class="map-user text-right">User: <strong>${username}</p>
                     <p class="map-date text-right"><small class="text-muted"></small></p>
                 </div>
@@ -74,7 +83,7 @@ if (fileUpload) {
 
                 fileUpload.style.display = 'none';
                 loadingNewMap.style.display = 'block';
-                fetch(`/api/new_map/filename=${dataFile.name}`, {
+                fetch(`/api/new_map/filename=${encodeURIComponent(dataFile.name)}`, {
                     method: 'POST',
                     headers: {
                         "Content-Disposition": `form-data;name=name; filename=${dataFile.name}`
