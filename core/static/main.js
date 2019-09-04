@@ -30,9 +30,9 @@ function showGeneratedImage(url, name, username) {
             <div class="col-md-8">
                 <img src="${url}" class="card-img" alt="${url}">
             </div>
-            <div class="col-md-4">
-                <div class="card-body bg-dark text-light image-view-tree">
-                    <h5 class="map-name text-right border-secondary">${name}&#9660;</h5>
+            <div class="col-md-4 bg-dark">
+                <div class="card-body text-light image-view-tree">
+                    <h5 class="map-name text-right border-bottom border-secondary">${name}&#9660;</h5>
                     <p class="map-user text-right">User: <strong>${username}</p>
                     <p class="map-date text-right"><small class="text-muted"></small></p>
                 </div>
