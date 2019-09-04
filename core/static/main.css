@@ -1,4 +1,9 @@
-
+#content {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
 
 #file-upload {
     display: none;
@@ -6,4 +11,9 @@
 
 #loading-new-map {
     display: none;
+}
+
+#image-view-tree {
+    text-align: right;
+    
 }

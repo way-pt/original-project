@@ -10,7 +10,8 @@ const newMapButton = document.querySelector('#new-map');
 const dataFileInput = document.querySelector('.data-file-input');
 
 // component templates
-function showGeneratedImage(url, username) {
+function showGeneratedImage(url, name, username) {
+    name = name || `<small class="text-muted">Map name</small>`
     username = username || '';
 
     const component = document.createElement('div');
@@ -21,10 +22,10 @@ function showGeneratedImage(url, username) {
                 <img src="${url}" class="card-img" alt="${url}">
             </div>
             <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="map-name"></h5>
-                    <p class="map-user">User: <strong>${username}</p>
-                    <p class="map-date"><small class="text-muted"></small></p>
+                <div class="card-body image-view-tree">
+                    <h5 class="map-name text-right">${name}&#9660;</h5>
+                    <p class="map-user text-right">User: <strong>${username}</p>
+                    <p class="map-date text-right"><small class="text-muted"></small></p>
                 </div>
             </div>
         </div>
@@ -84,7 +85,7 @@ if (fileUpload) {
                     console.log(data);
                     loadingNewMap.style.display = 'none';
                     let imageURL = data.newMap.image;
-                    content.appendChild(showGeneratedImage(imageURL, copyUsername));
+                    content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
                 })
                 // .then(response => console.log('Success:', JSON.stringify(response)))
                 // .catch(error => console.error('Error:', error));
