@@ -4,6 +4,14 @@ const newMapButton = document.querySelector('#new-map');
 const dataFileInput = document.querySelector('.data-file-input');
 
 
+if (document.querySelector('#loggedIn')) {
+    var copyUser = document.querySelector('#loggedIn').dataset['username']
+    var copyUsername = document.querySelector('#loggedIn').dataset['userstring']
+    console.log(copyUser)
+    console.log(copyUsername)
+}
+
+
 if (newMapButton && homePage) {
     newMapButton.addEventListener('click', function () {
         homePage.style.display = 'none';

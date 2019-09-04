@@ -38,6 +38,7 @@ class Draw:
         self.min_elevation = 0
         self.max_elevation = 0
         self.file_path = Path("core/static/images/elevation_map_paths" + str(self.pk) + ".png")
+        self.name = "Map " + str(self.pk)
 
     def init_data(self, file):
         self.data_file = file

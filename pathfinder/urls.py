@@ -24,7 +24,7 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    path('accounts/', include('registration.backends.simple.urls')),
     path('', views.index, name="index"),
     # path('new_map/', views.new_map, name='new-map'),
     path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),

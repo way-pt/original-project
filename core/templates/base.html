@@ -20,7 +20,8 @@
                 {% if request.user.is_authenticated %}
                 <ul class="nav nav-pills">
                   <li class="nav-item">
-                    <p class="nav-link">Logged in as {{ request.user }}</p>
+                    <p class="nav-link" id="loggedIn" data-username="{{ user.pk }}"
+                    data-userstring="{{ user.username }}">Logged in as {{ request.user }}</p>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'auth_logout' %}">Log Out</a>
