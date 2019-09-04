@@ -44,8 +44,10 @@ class Draw:
         
         # open file and store data in lines
         lines = file.readlines()
+        q = 0
         for l in lines:
-            if not l[0].isalpha():
+            q += 1
+            if not l[0].isalpha() and q >= 8 and len(l)>200:
                 clean_line = l[0:(len(l)-1)]
                 aline = clean_line.split(" ")
                 anotherline = []

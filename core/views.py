@@ -24,11 +24,11 @@ from core.forms import NewMapForm
 def index(request):
 
     new_map = Map.objects.last()
-    # data_file = new_map.data
+    # saved_file = new_map.data
 
-    # file = open(Path(data_file.path))
+    # usableData = open(Path(saved_file.path))
 
-    # test_map = Draw(file, new_map.pk)
+    # test_map = Draw(usableData, new_map.pk)
     # file_path = test_map.draw_map()
     # print(file_path)
     # new_map_image_file = open(Path(file_path), 'rb')
@@ -40,7 +40,7 @@ def index(request):
 
     # f.close()
     # new_map_image_file.close()
-    # file.close()
+    # usableData.close()
 
     return render(request, "base.html", {'map': new_map})
 
@@ -104,11 +104,15 @@ class GenerateMap(APIView):
         # name = request.data['name']
         data_file = request.data['file']
         # file = open(Path(data_file, 'r'))
-        file = data_file.open()
+        file = data_file.open(mode='r')
         new_map = Map.objects.create()
         new_map.data.save(name='data' + str(new_map.pk) + '.txt', content=file)
-        
-        test_map = Draw(file, new_map.pk)
+
+        saved_file = new_map.data
+
+        usableData = open(Path(saved_file.path))
+
+        test_map = Draw(usableData, new_map.pk)
         file_path = test_map.draw_map()
         print(file_path)
         new_map_image_file = open(Path(file_path), 'rb')
@@ -120,13 +124,29 @@ class GenerateMap(APIView):
 
         f.close()
         new_map_image_file.close()
-        file.close()
+        usableData.close()
 
-        r = {"created": {
-            "name": new_map.name,
-            "user": new_map.user,
-            "data": new_map.data,
-            "img": new_map.image
-            }}
+        r = {'created': new_map.data.path}
+
+        # test_map = Draw(file, new_map.pk)
+        # file_path = test_map.draw_map()
+        # print(file_path)
+        # new_map_image_file = open(Path(file_path), 'rb')
+        # f = File(new_map_image_file)
+        # new_map.image.save(name="elevation_map3.png", content=f)
+        # # new_map.save()
+        # print(new_map.image.path)
+        # print(new_map.image.url)
+
+        # f.close()
+        # new_map_image_file.close()
+        # file.close()
+
+        # r = {"created": {
+        #     "name": new_map.name,
+        #     "user": new_map.user,
+        #     "data": new_map.data,
+        #     "img": new_map.image
+        #     }}
             
         return Response(r, status=status.HTTP_201_CREATED)
