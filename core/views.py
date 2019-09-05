@@ -17,7 +17,7 @@ from core.serializers import MapSerializer
 from rest_framework import generics, status
 from rest_framework.authentication import (BasicAuthentication,
                                            SessionAuthentication)
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.exceptions import ParseError, NotFound, ValidationError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
@@ -34,13 +34,14 @@ def index(request):
  
 
 
+
 ### API Views ###
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
-        return  # To not perform the csrf check previously happening
+        return  # prevent csrf check
 
 class AllMaps(generics.ListAPIView):
     queryset = Map.objects.all()
@@ -58,8 +59,8 @@ def latest_map(request):
 
     r = {'map' : {
         'name': latest.name,
-        'user': latest.user,
-        'data_url': latest.data.url,
+        'user': latest.user.get_username(),
+        'data_url': latest.data.name,
         'image': latest.image.url,
         'date': str(latest.date),
         'pk': latest.pk
@@ -104,6 +105,8 @@ class GenerateMap(APIView):
             
         return Response(r, status=status.HTTP_201_CREATED)
 
+
+@authentication_classes([CsrfExemptSessionAuthentication])
 @api_view(['PATCH'])
 def save_map(request):
     pk = request.data['pk']
@@ -118,21 +121,21 @@ def save_map(request):
     except ObjectDoesNotExist:
         raise NotFound({'User not found': {'pk': pk}})
     
-    if(len(name) < 1 or len(name) > 50):
+    if(not name or len(name) > 50):
         raise ValidationError({'Invalid name entered. Must be within 1 and 50 characters'})
     
     map_to_save.user = user
     map_to_save.name = name
     map_to_save.save()
     user_username = user.get_username()
-    data_file_url = map_to_save.data.url
+    data_file_name = map_to_save.data.name
     image_url = map_to_save.image.url
 
     r = {'map':{
         'name': name,
-        'user': user,
+        'user': map_to_save.user.get_username(),
         'user_username': user_username,
-        'data_file': data_file_url,
+        'data_file': data_file_name,
         'image': image_url,
         'date': str(map_to_save.date),
         'pk': pk}

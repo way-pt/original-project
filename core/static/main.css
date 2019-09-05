@@ -27,3 +27,11 @@
 #map-name-input {
     display: none;
 }
+
+#map-save-modal {
+    margin-top: 100px;
+}
+
+.map-data-title {
+    vertical-align: super;
+}

@@ -71,7 +71,7 @@
 
 
     <div class="modal fade" id="save-map-modal" tabindex="-1" role="dialog" aria-labelledby="save-map-modalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Save Map</h5>
@@ -81,11 +81,18 @@
           </div>
           <div class="modal-body">
             <p>Would you like to save your map?</p>
-            <input id="map-name-input" type="text" class="form-control" placeholder="map name..." aria-label="map name">
+                    
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
-            <button type="button" class="btn btn-primary" disabled>Save</button>
+              <div class="input-group mb-3 map-name-input">
+                  <div class="input-group-prepend">
+                      <button class="btn btn-outline-danger" type="button" id="button-addon1" data-dismiss="modal">Discard</button>
+                    </div>
+                  <input type="text" id="map-name-input-field" class="form-control display-none" placeholder="Map name" aria-label="Map name" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-success map-name-submit" type="button" id="proceed-to-save" disabled>Save</button>
+                  </div>
+                </div>  
           </div>
         </div>
       </div>

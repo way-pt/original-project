@@ -8,8 +8,9 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
-var $ = require('jquery');
+const $ = require('jquery');
 require('bootstrap');
+const ImageViewer = require('iv-viewer').default;
 
 
 // pages
@@ -22,7 +23,10 @@ const loadingNewMap = document.querySelector('#loading-new-map');
 const newMapButton = document.querySelector('#new-map');
 const dataFileInput = document.querySelector('.data-file-input');
 const showRecentButton = document.querySelector('#show-most-recent');
-// const saveMapModal = document.querySelector('#save-map-modal');
+const mapNameInput = document.querySelector('#map-name-input');
+const mapNameInputField = document.querySelector('#map-name-input-field');
+const mapNameSubmit = document.querySelector('.map-name-submit');
+const saveModalButtons = document.querySelector('#save-modal-buttons');
 
 // component templates
 function hide(element){
@@ -33,7 +37,7 @@ function hide(element){
     return;
 }
 
-function showGeneratedImage(url, name, username) {
+function showGeneratedImage(url, name, username, dataFileName, date) {
     name = name || `<small class="text-muted">Map name</small>`
     username = username || '';
 
@@ -46,9 +50,11 @@ function showGeneratedImage(url, name, username) {
             </div>
             <div class="col-md-4 bg-dark">
                 <div class="card-body text-light image-view-tree">
-                    <h5 class="map-name text-right border-bottom border-secondary">${name}&#9660;</h5>
-                    <p class="map-user text-right">User: <strong>${username}</p>
-                    <p class="map-date text-right"><small class="text-muted"></small></p>
+                    <h5 class="map-name text-right border-bottom border-secondary">${name}</h5>
+                    <p class="map-user text-right">${username}</p>
+                    <p class="map-date text-right border-bottom border-secondary"><small class="text-muted">${date}</small></p>
+                    <p class="map-data-title text-left>Data files</p>
+                    <p class="map-data text-right>${dataFileName}</p>
                 </div>
             </div>
         </div>
@@ -73,14 +79,46 @@ function showMostRecent() {
         let mapPK = data.map.pk;
         loadingNewMap.style.display = 'none';
         content.appendChild(showGeneratedImage(imageURL, name, user));
-        // content.appendChild(showSaveModal());
         $('#save-map-modal').modal('show');
     })
 }
 
 
-// function prompMapSave()
+function promptMapSave(mapPK) {
+    $('#save-map-modal').modal('show');
+    mapNameInputField.addEventListener('input', function () {
 
+        $('.map-name-submit').removeAttr('disabled');
+        mapNameSubmit.addEventListener('click', function () {
+            let userPK = copyUser;
+            let name = mapNameInputField.value;
+            let dict = {
+                "pk": mapPK,
+                "name": name,
+                "user": userPK
+            }
+            $('#save-map-modal').modal('hide');
+            fetch(`/api/save_map/`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": `application/json`
+                },
+                body: JSON.stringify(dict)
+            }).then(res => res.text())
+            .then(function (text) {
+                console.log(text)
+                // $(".generated-image").remove();
+                // showGeneratedImage(data.map.image, data.map.name, data.map.user_username, data.map.data_file, data.map.date);
+            })
+        })
+    })
+
+   
+}
+
+$('#save-map-modal').on('shown.bs.modal', function () {
+    $('#map-name-input-field').trigger('focus')
+  })
 
 
 
@@ -108,7 +146,7 @@ if (newMapButton && homePage) {
 
 if (fileUpload) {
     const dataFileInput = document.querySelector('.data-file-input');
-    dataFileInput.addEventListener('change', function () {
+    dataFileInput.addEventListener('input', function () {
         let dataFile = dataFileInput.files[0];
         console.log(dataFile.name);
         const submitMapFormButton = document.querySelector('.submit-map-form');
@@ -132,6 +170,7 @@ if (fileUpload) {
                 loadingNewMap.style.display = 'none';
                 let imageURL = data.newMap.image;
                 content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
+                promptMapSave(data.pk);
             })
                 // .then(response => console.log('Success:', JSON.stringify(response)))
                 // .catch(error => console.error('Error:', error));
