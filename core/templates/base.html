@@ -15,35 +15,42 @@
   
 </head>
 
-<body>
-  <nav id="navbar-example2" class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'index' %}">Home</a>
-    {% if request.user.is_authenticated %}
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <p class="nav-link" id="loggedIn" data-username="{{ user.pk }}"
-        data-userstring="{{ user.username }}">Logged in as {{ request.user }}</p>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'auth_logout' %}">Log Out</a>
-      </li>
-    </ul>
-    {% else %}
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
-      </li>
-    </ul>
-    {% endif %}
+<body class="bg-light">
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">Pathfinder</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <p class="nav-link" id="loggedIn" data-username="{{ user.pk }}"
+            data-userstring="{{ user.username }}">Logged in as {{ request.user }}</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_logout' %}">Log Out</a>
+          </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+            </li>
+          {% endif %}
+        </ul>
   </nav>
+
   <div id="content">
     {% block content %}
     <div id="home"> 
       
-      <button id="new-map" type="button" class="btn btn-success">New Map</button>
-      <button id="show-most-recent" type="button" class="btn">Show Most Recent</button>
-      <br>
+      <button id="new-map" type="button" class="btn btn-outline-success">New Map</button>
+      <button id="user-maps" type="button" class="btn btn-outline-secondary">Your Maps</button>
+      <button id="show-most-recent" type="button" class="btn btn-outline-secondary">Show Most Recent</button>
     </div> 
+    <br><br>
     
     <div id="file-upload">
       <h2>New Map</h2>
@@ -97,29 +104,10 @@
         </div>
       </div>
     </div>
+  
 
-    <ul class="list-unstyled">
-      <li class="media">
-        <img src="..." class="mr-3" alt="...">
-        <div class="media-body">
-          <h5 class="mt-0 mb-1">List-based media object</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </li>
-      <li class="media my-4">
-        <img src="..." class="mr-3" alt="...">
-        <div class="media-body">
-          <h5 class="mt-0 mb-1">List-based media object</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </li>
-      <li class="media">
-        <img src="..." class="mr-3" alt="...">
-        <div class="media-body">
-          <h5 class="mt-0 mb-1">List-based media object</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </li>
+    <ul class="list-unstyled" id="user-maps-list">
+
     </ul>
     
 

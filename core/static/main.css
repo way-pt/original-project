@@ -1,6 +1,11 @@
+* {
+    margin-bottom: 20px;
+}
 #content {
     max-width: 100%;
-    display: flex;
+    margin: 0 20px;
+    margin-top: 40px;
+    display: block;
     justify-content: center;
     text-align: center;
 }
@@ -34,4 +39,17 @@
 
 .map-data-title {
     vertical-align: super;
+}
+
+.map-list-image {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.media-body {
+    vertical-align: middle;
+}
+
+.border-lightgrey {
+    border-color: lightslategray;
 }

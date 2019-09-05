@@ -28,6 +28,8 @@ const mapNameInput = document.querySelector('#map-name-input');
 const mapNameInputField = document.querySelector('#map-name-input-field');
 const mapNameSubmit = document.querySelector('.map-name-submit');
 const saveModalButtons = document.querySelector('#save-modal-buttons');
+const userMapsButton = document.querySelector('#user-maps');
+const userMapsList = document.querySelector('#user-maps-list');
 
 // component templates
 function hide(element){
@@ -63,6 +65,19 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
     `
     return component;
 }
+function mapListView(imageURL, name, username, date) {
+    const component = document.createElement('div');
+    component.innerHTML = `
+  <li class="media border border-lightgrey shadow-sm">
+    <img src="${imageURL}" class="mr-3 map-list-image align-self-center" alt="...">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">${name}</h5>
+      ${username} | added on ${date}
+    </div>
+  </li>
+    `
+    return component;
+}
 
 
 
@@ -81,6 +96,25 @@ function showMostRecent() {
         loadingNewMap.style.display = 'none';
         content.appendChild(showGeneratedImage(imageURL, name, user));
         $('#save-map-modal').modal('show');
+    })
+}
+function showUserMaps() {
+    hide(content);
+    loadingNewMap.style.display = 'block';
+    let csrftoken = Cookie.get('csrftoken');
+    fetch(`/api/user_maps/${copyUser}`, {
+        method: 'GET',
+        headers: {
+            "X-CSRFToken": csrftoken
+        }
+    }).then(res => res.json())
+    .then(function(data) {
+        console.log(data);
+        loadingNewMap.style.display = 'none';
+        userMapsList.style.display = 'block';
+        for (let m of data) {
+            userMapsList.appendChild(mapListView(m.image, m.name, copyUsername, m.date));
+        }
     })
 }
 
@@ -136,6 +170,11 @@ if (showRecentButton) {
     showRecentButton.addEventListener('click', function () {
         hide(content);
         showMostRecent();
+    })
+}
+if (userMapsButton) {
+    userMapsButton.addEventListener('click', function() {
+        showUserMaps();
     })
 }
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.core.files import File
 from django.core.files.images import ImageFile
 from django.http import HttpResponseRedirect
@@ -54,6 +54,25 @@ class AllMaps(generics.ListAPIView):
 class MostRecentMap(generics.ListAPIView):
     serializer_class = MapSerializer
     queryset = Map.objects.last()
+
+@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
+@api_view(['GET'])
+def user_maps(request, user):
+
+    maps = Map.objects.filter(user=request.user)
+    r = []
+
+    for m in maps:
+        dic = {
+            'name': m.name,
+            'image': m.image.url,
+            'date': str(m.date),
+            'pk': m.pk
+        }
+        r.append(dic)
+
+    return Response(r)
+     
 
 
 @api_view(['GET'])
@@ -112,6 +131,7 @@ class GenerateMap(APIView):
 @authentication_classes([CsrfExemptSessionAuthentication])
 @api_view(['PATCH'])
 def save_map(request):
+    print(request.user)
     pk = request.data['pk']
     userPK = request.data['user']
     name = request.data['name']
