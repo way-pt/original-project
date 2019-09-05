@@ -11,7 +11,7 @@ function escapeHtml(unsafe) {
 const $ = require('jquery');
 require('bootstrap');
 const ImageViewer = require('iv-viewer').default;
-
+const Cookie = require('js-cookie');
 
 // pages
 const content = document.querySelector('#content');
@@ -97,11 +97,15 @@ function promptMapSave(mapPK) {
                 "name": name,
                 "user": userPK
             }
+            console.log(JSON.stringify(dict));
+            console.log(copyUser);
             $('#save-map-modal').modal('hide');
+            let csrftoken = Cookie.get('csrftoken');
             fetch(`/api/save_map/`, {
                 method: 'PATCH',
                 headers: {
-                    "Content-Type": `application/json`
+                    "Content-Type": `application/json`,
+                    "X-CSRFToken": csrftoken
                 },
                 body: JSON.stringify(dict)
             }).then(res => res.text())
@@ -170,7 +174,7 @@ if (fileUpload) {
                 loadingNewMap.style.display = 'none';
                 let imageURL = data.newMap.image;
                 content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
-                promptMapSave(data.pk);
+                promptMapSave(data.newMap.pk);
             })
                 // .then(response => console.log('Success:', JSON.stringify(response)))
                 // .catch(error => console.error('Error:', error));
