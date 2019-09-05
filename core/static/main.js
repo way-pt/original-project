@@ -62,6 +62,18 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
     `
     return component;
 }
+function mapListView(imageURL, name, username, date) {
+    const component = document.createElement('div');
+    component.innerHTML = `
+  <li class="media">
+    <img src="${imageURL}" class="mr-3" alt="...">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">${name}</h5>
+      ${username} | added on ${date}
+    </div>
+  </li>
+    `
+}
 
 
 
