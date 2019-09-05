@@ -8,6 +8,10 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
+var $ = require('jquery');
+require('bootstrap');
+
+
 // pages
 const content = document.querySelector('#content');
 const homePage = document.querySelector('#home');
@@ -18,7 +22,7 @@ const loadingNewMap = document.querySelector('#loading-new-map');
 const newMapButton = document.querySelector('#new-map');
 const dataFileInput = document.querySelector('.data-file-input');
 const showRecentButton = document.querySelector('#show-most-recent');
-const saveMapModal = document.querySelector('#save-map-modal');
+// const saveMapModal = document.querySelector('#save-map-modal');
 
 // component templates
 function hide(element){
@@ -52,32 +56,7 @@ function showGeneratedImage(url, name, username) {
     `
     return component;
 }
-function showSaveModal(){
-    const component = document.createElement('div');
-    component.innerHTML = `
-    <div class="modal save-map-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Save map</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Would you like to save your map?</p>
-            <input id="map-name-input" type="text" class="form-control" placeholder="map name..." aria-label="map name">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button save-map-button" class="btn btn-primary" disabled>Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    `
-    return component;
-}
+
 
 
 
@@ -95,7 +74,7 @@ function showMostRecent() {
         loadingNewMap.style.display = 'none';
         content.appendChild(showGeneratedImage(imageURL, name, user));
         // content.appendChild(showSaveModal());
-        saveMapModal.modal({show: true});
+        $('#save-map-modal').modal('show');
     })
 }
 
