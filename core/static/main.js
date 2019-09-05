@@ -97,8 +97,6 @@ function promptMapSave(mapPK) {
                 "name": name,
                 "user": userPK
             }
-            console.log(JSON.stringify(dict));
-            console.log(copyUser);
             $('#save-map-modal').modal('hide');
             let csrftoken = Cookie.get('csrftoken');
             fetch(`/api/save_map/`, {
@@ -108,11 +106,11 @@ function promptMapSave(mapPK) {
                     "X-CSRFToken": csrftoken
                 },
                 body: JSON.stringify(dict)
-            }).then(res => res.text())
-            .then(function (text) {
-                console.log(text)
-                // $(".generated-image").remove();
-                // showGeneratedImage(data.map.image, data.map.name, data.map.user_username, data.map.data_file, data.map.date);
+            }).then(res => res.json())
+            .then(function (data) {
+                console.log(data)
+                $(".generated-image").remove();
+                content.appendChild(showGeneratedImage(data.map.image, data.map.name, data.map.user_username, data.map.data_file, data.map.date));
             })
         })
     })
