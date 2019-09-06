@@ -74,6 +74,51 @@ def user_maps(request, user):
     return Response(r)
      
 
+@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
+@api_view(['GET'])
+def user_recents(request):
+    if not request.user.is_authenticated:
+        raise PermissionDenied
+
+    maps = Map.objects.filter(user=request.user)[:5]
+    r = []
+
+    for m in maps:
+        dic = {
+            'name': m.name,
+            'image': m.image.url,
+            'date': str(m.date),
+            'pk': m.pk
+        }
+        r.append(dic)
+
+    return Response(r)
+
+
+@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
+@api_view(['GET'])
+def map_view(request, pk):
+    if not request.user.is_authenticated:
+        raise PermissionDenied
+
+    m = Map.objects.get(pk=pk)
+
+    if not m.user == request.user:
+        raise PermissionDenied
+
+    r = {
+            'name': m.name,
+            'user': m.user,
+            'user_username': m.user.get_username(),
+            'data_file': m.data_file.name,
+            'image': m.image.url,
+            'date': str(m.date),
+            'pk': m.pk
+        }
+
+    return Response(r)
+
+
 
 @api_view(['GET'])
 def latest_map(request):

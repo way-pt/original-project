@@ -18,7 +18,7 @@
 <body class="bg-light">
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <a class="navbar-brand" href="{% url 'index' %}">Pathfinder</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -40,15 +40,28 @@
             </li>
           {% endif %}
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="your maps" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+    </div>
   </nav>
 
+  <a href="" id="back-button"><img src="{% static 'images/back_arrow.svg' %}"></a>
   <div id="content">
     {% block content %}
+    
     <div id="home"> 
-      
-      <button id="new-map" type="button" class="btn btn-outline-success">New Map</button>
-      <button id="user-maps" type="button" class="btn btn-outline-secondary">Your Maps</button>
-      <button id="show-most-recent" type="button" class="btn btn-outline-secondary">Show Most Recent</button>
+      <div id="home-left">  
+        <button id="new-map" type="button" class="btn btn-outline-success">New Map</button>
+        <button id="user-maps" type="button" class="btn btn-outline-secondary">Your Maps</button>
+        <button id="show-most-recent" type="button" class="btn btn-outline-secondary">Show Most Recent</button>
+      </div>
+      <div id="home-right">
+          <ul class="list-unstyled" id="recent-maps-home">
+
+            </ul>
+      </div>
     </div> 
     <br><br>
     

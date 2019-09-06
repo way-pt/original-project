@@ -17,6 +17,7 @@ const Cookie = require('js-cookie');
 // pages
 const content = document.querySelector('#content');
 const homePage = document.querySelector('#home');
+const recentMapsHome = document.querySelector('#recent-maps-home');
 const fileUpload = document.querySelector('#file-upload');
 const loadingNewMap = document.querySelector('#loading-new-map');
 
@@ -30,6 +31,9 @@ const mapNameSubmit = document.querySelector('.map-name-submit');
 const saveModalButtons = document.querySelector('#save-modal-buttons');
 const userMapsButton = document.querySelector('#user-maps');
 const userMapsList = document.querySelector('#user-maps-list');
+const backButton = document.querySelector('#back-button');
+const mapLink = document.querySelectorAll('.map-link');
+
 
 // component templates
 function hide(element){
@@ -65,13 +69,13 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
     `
     return component;
 }
-function mapListView(imageURL, name, username, date) {
+function mapListView(imageURL, name, username, date, pk) {
     const component = document.createElement('div');
     component.innerHTML = `
   <li class="media border border-lightgrey shadow-sm">
     <img src="${imageURL}" class="mr-3 map-list-image align-self-center" alt="...">
     <div class="media-body">
-      <h5 class="mt-0 mb-1">${name}</h5>
+      <h5 class="mt-0 mb-1"><a href='#' class='map-link' data-pk=${pk}>${name}</a></h5>
       ${username} | added on ${date}
     </div>
   </li>
@@ -81,9 +85,28 @@ function mapListView(imageURL, name, username, date) {
 
 
 
+function showHomePage() {
+    homePage.style.display = 'flex';
+    backButton.style.display = 'none';
+    let csrftoken = Cookie.get('csrftoken');
+
+    fetch('/api/user_recents/', {
+        method: 'GET',
+        headers: {
+            "X-CSRFToken": csrftoken
+        }
+    }).then(res => res.json())
+    .then(function(data) {
+        for (let m of data) {
+            recentMapsHome.appendChild(mapListView(m.image, m.name, copyUsername, m.date, m.pk));
+        }
+    })
+}
+
 
 function showMostRecent() {
     loadingNewMap.style.display = 'block';
+    
     fetch(`/api/recent_map/`).then(res => res.json())
     .then(function (data) {
         console.log(data);
@@ -113,7 +136,7 @@ function showUserMaps() {
         loadingNewMap.style.display = 'none';
         userMapsList.style.display = 'block';
         for (let m of data) {
-            userMapsList.appendChild(mapListView(m.image, m.name, copyUsername, m.date));
+            userMapsList.appendChild(mapListView(m.image, m.name, copyUsername, m.date, m.pk));
         }
     })
 }
@@ -185,6 +208,33 @@ if (newMapButton && homePage) {
         fileUpload.style.display = 'block';
     })
 }
+if (!homePage){
+    backButton.style.display = 'block';
+    backButton.addEventListener('click', function () {
+        hide(content);
+        showHomePage();
+    })
+
+}
+
+if (mapLink) {
+    for (let m of mapLink){
+        m.addEventListener('click', function () {
+
+                let pk = event.target.dataset['pk'];
+                let csrftoken = Cookie.get('csrftoken');
+                fetch(`/api/map/${pk}`, {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": `application/json`,
+                        "X-CSRFToken": csrftoken
+                    },
+                    body: JSON.stringify(dict)
+                }).then(res => res.json())
+            
+        })
+    }
+}
 
 if (fileUpload) {
     const dataFileInput = document.querySelector('.data-file-input');
@@ -220,6 +270,12 @@ if (fileUpload) {
     })
     
 }
+
+
+
+window.addEventListener('DOMContentLoaded', function() {
+    showHomePage();
+})
 
 },{"bootstrap":2,"iv-viewer":6,"jquery":8,"js-cookie":9}],2:[function(require,module,exports){
 /*!
