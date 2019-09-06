@@ -108,9 +108,9 @@ def map_view(request, pk):
 
     r = {
             'name': m.name,
-            'user': m.user,
+            'user': m.user.pk,
             'user_username': m.user.get_username(),
-            'data_file': m.data_file.name,
+            'data_file': m.data.name,
             'image': m.image.url,
             'date': str(m.date),
             'pk': m.pk

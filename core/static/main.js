@@ -31,7 +31,7 @@ const saveModalButtons = document.querySelector('#save-modal-buttons');
 const userMapsButton = document.querySelector('#user-maps');
 const userMapsList = document.querySelector('#user-maps-list');
 const backButton = document.querySelector('#back-button');
-const mapLink = document.querySelectorAll('.map-link');
+// const mapLink = document.querySelectorAll('.map-link');
 
 
 // component templates
@@ -48,6 +48,7 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
     username = username || '';
 
     const component = document.createElement('div');
+    component.className = 'generated-image-container'
     component.innerHTML = `
     <div class="generated-image card mb-3" style="max-width: 700px;">
         <div class="row no-gutters">
@@ -98,8 +99,36 @@ function showHomePage() {
     .then(function(data) {
         for (let m of data) {
             recentMapsHome.appendChild(mapListView(m.image, m.name, copyUsername, m.date, m.pk));
+            initMapViewLinks();
         }
+        
     })
+}
+
+
+function initMapViewLinks() {
+    let mapLink = document.querySelectorAll('.map-link');
+        for (let m of mapLink){
+            m.addEventListener('click', function (event) {
+                    console.log('clicl')
+                    let pk = event.target.dataset['pk'];
+                    let csrftoken = Cookie.get('csrftoken');
+                    fetch(`/api/map/${pk}`, {
+                        method: 'GET',
+                        headers: {
+                            "Content-Type": `application/json`,
+                            "X-CSRFToken": csrftoken
+                        }
+                    }).then(res => res.json())
+                    .then(function (data) {
+                        hide(content);
+                        content.appendChild(showGeneratedImage(data.image, data.name, data.data_file, data.date));
+                        showBackButton();
+                        
+                    })
+                
+            })
+        }
 }
 
 
@@ -136,6 +165,7 @@ function showUserMaps() {
         userMapsList.style.display = 'block';
         for (let m of data) {
             userMapsList.appendChild(mapListView(m.image, m.name, copyUsername, m.date, m.pk));
+            initMapViewLinks();
         }
     })
 }
@@ -170,9 +200,16 @@ function promptMapSave(mapPK) {
                 content.appendChild(showGeneratedImage(data.map.image, data.map.name, data.map.user_username, data.map.data_file, data.map.date));
             })
         })
+    })   
+}
+
+function showBackButton() {
+    backButton.style.display = 'block';
+    backButton.addEventListener('click', function () {
+        hide(content);
+        showHomePage();
     })
 
-   
 }
 
 $('#save-map-modal').on('shown.bs.modal', function () {
@@ -207,33 +244,29 @@ if (newMapButton && homePage) {
         fileUpload.style.display = 'block';
     })
 }
-if (!homePage){
-    backButton.style.display = 'block';
-    backButton.addEventListener('click', function () {
-        hide(content);
-        showHomePage();
-    })
 
-}
 
-if (mapLink) {
-    for (let m of mapLink){
-        m.addEventListener('click', function () {
 
-                let pk = event.target.dataset['pk'];
-                let csrftoken = Cookie.get('csrftoken');
-                fetch(`/api/map/${pk}`, {
-                    method: 'GET',
-                    headers: {
-                        "Content-Type": `application/json`,
-                        "X-CSRFToken": csrftoken
-                    },
-                    body: JSON.stringify(dict)
-                }).then(res => res.json())
+// if (mapLink) {
+//     console.log('ahhhh')
+//     console.log(mapLink.length)
+//     for (let m of mapLink){
+//         m.addEventListener('click', function () {
+//                 console.log('clicl')
+//                 let pk = event.target.dataset['pk'];
+//                 let csrftoken = Cookie.get('csrftoken');
+//                 fetch(`/api/map/${pk}`, {
+//                     method: 'GET',
+//                     headers: {
+//                         "Content-Type": `application/json`,
+//                         "X-CSRFToken": csrftoken
+//                     },
+//                     body: JSON.stringify(dict)
+//                 }).then(res => res.json())
             
-        })
-    }
-}
+//         })
+//     }
+// }
 
 if (fileUpload) {
     const dataFileInput = document.querySelector('.data-file-input');

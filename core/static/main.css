@@ -85,3 +85,8 @@ nav {
     display: flex;
     justify-content: center;
 }
+
+#generated-image-containter {
+    display: flex;
+    justify-content: center;
+}
