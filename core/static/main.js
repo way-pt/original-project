@@ -302,7 +302,11 @@ if (fileUpload) {
     })
     
 }
-
+document.querySelector("#map-name-input-field").addEventListener("keyup", event => {
+    if (event.key !== "Enter") return;
+    mapNameSubmit.click()
+    event.preventDefault()
+});
 
 
 window.addEventListener('DOMContentLoaded', function() {
