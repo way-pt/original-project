@@ -6,6 +6,7 @@ from django.core.files import File
 from django.core.files.images import ImageFile
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
@@ -26,7 +27,8 @@ from rest_framework.views import APIView
 # Create your views here.
 
 def index(request):
-
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('auth_login'))
     new_map = Map.objects.last()
     print(request.user.get_username())
     return render(request, "base.html", {'map': new_map})

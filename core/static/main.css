@@ -86,7 +86,16 @@ nav {
     justify-content: center;
 }
 
+
+#generated-image {
+    min-width: 100%;
+}
 #generated-image-containter {
     display: flex;
     justify-content: center;
+    max-width: 90%;
+}
+
+#card-img {
+    min-width: 80%;
 }

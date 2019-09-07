@@ -53,7 +53,7 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
     component.innerHTML = `
     <div class="generated-image card mb-3" style="max-width: 700px;">
         <div class="row no-gutters">
-            <div class="col-md-8">
+            <div class="col-md-8 card-img">
                 <img src="${url}" class="card-img" alt="${url}">
             </div>
             <div class="col-md-4 bg-dark">
@@ -303,7 +303,11 @@ if (fileUpload) {
     })
     
 }
-
+document.querySelector("#map-name-input-field").addEventListener("keyup", event => {
+    if (event.key !== "Enter") return;
+    mapNameSubmit.click()
+    event.preventDefault()
+});
 
 
 window.addEventListener('DOMContentLoaded', function() {
