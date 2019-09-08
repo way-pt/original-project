@@ -50,12 +50,12 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
     const component = document.createElement('div');
     component.className = 'generated-image-container'
     component.innerHTML = `
-    <div class="generated-image card mb-3" style="max-width: 700px;">
-        <div class="row no-gutters">
-            <div class="col-md-8 card-img">
+    <div class="generated-image card mb-3">
+        <div class="row no-gutters image-card">
+            <div class="col-md-10 img-container">
                 <img src="${url}" class="card-img" alt="${url}">
             </div>
-            <div class="col-md-4 bg-dark">
+            <div class="col-md-2 bg-dark image-sidebar">
                 <div class="card-body text-light image-view-tree">
                     <h5 class="map-name text-right border-bottom border-secondary">${name}</h5>
                     <p class="map-user text-right">${username}</p>
@@ -67,6 +67,8 @@ function showGeneratedImage(url, name, username, dataFileName, date) {
         </div>
     </div>
     `
+    
+
     return component;
 }
 function mapListView(imageURL, name, username, date, pk) {
@@ -124,6 +126,8 @@ function initMapViewLinks() {
                         hide(content);
                         content.appendChild(showGeneratedImage(data.image, data.name, data.data_file, data.date));
                         showBackButton();
+                        // const image = document.querySelector('.card-img');
+                        // const viewer = new ImageViewer(image);
                         
                     })
                 
@@ -166,6 +170,7 @@ function showUserMaps() {
         for (let m of data) {
             userMapsList.appendChild(mapListView(m.image, m.name, copyUsername, m.date, m.pk));
             initMapViewLinks();
+            
         }
     })
 }

@@ -37,9 +37,12 @@ def index(request):
 
 
 
+
+
 #################
 ### API Views ###
 #################
+
 
 
 
@@ -47,6 +50,9 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
         return  # prevent csrf check
+
+
+
 
 class AllMaps(generics.ListAPIView):
     queryset = Map.objects.all()
@@ -57,9 +63,14 @@ class MostRecentMap(generics.ListAPIView):
     serializer_class = MapSerializer
     queryset = Map.objects.last()
 
+
+
+
 @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
 @api_view(['GET'])
 def user_maps(request, user):
+    if not request.user.is_authenticated:
+        raise PermissionDenied
 
     maps = Map.objects.filter(user=request.user)
     r = []
@@ -95,6 +106,15 @@ def user_recents(request):
         r.append(dic)
 
     return Response(r)
+
+
+@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
+@api_view(['GET'])
+def search_maps(request, query):
+    if not request.user.is_authenticated:
+        raise PermissionDenied
+    
+    maps = Map.objects.filter(user=request.user, )
 
 
 @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])

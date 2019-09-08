@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'registration', 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -149,3 +150,4 @@ from pathfinder import disable
 MIDDLEWARE_CLASSES = (
     disable.DisableCSRF,
 )
+

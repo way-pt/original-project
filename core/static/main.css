@@ -56,8 +56,8 @@ nav {
 }
 
 .map-list-image {
-    max-width: 128px;
-    max-height: 128px;
+    /* max-width: 128px; */
+    height: 160px;
 }
 
 .media-body {
@@ -87,7 +87,7 @@ nav {
 }
 
 
-#generated-image {
+/* #generated-image {
     min-width: 100%;
 }
 #generated-image-containter {
@@ -98,4 +98,10 @@ nav {
 
 #card-img {
     min-width: 80%;
+}
+#image-card {
+    min-width: 80%;
+} */
+#image-sidebar {
+    max-width: 80px;
 }
