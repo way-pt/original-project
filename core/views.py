@@ -40,6 +40,7 @@ def index(request):
 
 
 
+# for use in development only
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
@@ -82,6 +83,8 @@ def user_maps(request, user):
     return Response(r)
      
 
+# 5 most recent maps, shown on home page
+
 @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
 @api_view(['GET'])
 def user_recents(request):
@@ -103,14 +106,19 @@ def user_recents(request):
     return Response(r)
 
 
-@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
-@api_view(['GET'])
-def search_maps(request, query):
-    if not request.user.is_authenticated:
-        raise PermissionDenied
-    
-    maps = Map.objects.filter(user=request.user, )
+# search endpoint *IN PROGRESS*
 
+# @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
+# @api_view(['GET'])
+# def search_maps(request, query):
+#     if not request.user.is_authenticated:
+#         raise PermissionDenied
+    
+#     maps = Map.objects.filter(user=request.user, )
+
+
+
+# map detail view
 
 @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
 @api_view(['GET'])
@@ -136,7 +144,7 @@ def map_view(request, pk):
     return Response(r)
 
 
-
+# used in development
 @api_view(['GET'])
 def latest_map(request):
     latest = Map.objects.last()
@@ -152,6 +160,11 @@ def latest_map(request):
     }}
     return Response(r)
 
+
+
+
+# endpoint that parses uploaded data file and generates .png map image.
+# this view DOES NOT save the map to the user
 
 class GenerateMap(APIView):
     parser_classes = [FileUploadParser]
@@ -189,6 +202,8 @@ class GenerateMap(APIView):
             
         return Response(r, status=status.HTTP_201_CREATED)
 
+
+# endpoint for saving a map to a user
 
 @authentication_classes([CsrfExemptSessionAuthentication])
 @api_view(['PATCH'])
