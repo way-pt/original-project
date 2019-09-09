@@ -16,9 +16,7 @@ class Map(models.Model):
     image = models.ImageField(upload_to="photos", null=True, blank=True)
     name = models.CharField(max_length=50, help_text="A name for the map.", null=True, blank=True)
     date = models.DateField(default=date.today, null=True, blank=True)
-    # def __str__(self):
-        
-    #     return f'[{self.user.get_username()}] {self.name}'
+
 
     class Meta:
         ordering = ['-date']
