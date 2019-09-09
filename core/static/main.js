@@ -3,7 +3,7 @@ AWS.config.update({
     accessKeyId: "AKIAJGWGSELDGBNZW5DA",
     secretAccessKey: "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"
 })
-
+var s3 = new AWS.S3({params: {Bucket: 'myBucket'}});
 
 
 
