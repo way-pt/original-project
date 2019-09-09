@@ -3,15 +3,10 @@ from pathlib import Path
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.core.files import File
-from django.core.files.images import ImageFile
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from PIL import Image
 
-from core.forms import NewMapForm
 from core.models import Map
 from core.pathfinder import Draw
 from core.serializers import MapSerializer
@@ -19,7 +14,7 @@ from rest_framework import generics, status
 from rest_framework.authentication import (BasicAuthentication,
                                            SessionAuthentication)
 from rest_framework.decorators import api_view, authentication_classes
-from rest_framework.exceptions import ParseError, NotFound, ValidationError
+from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
