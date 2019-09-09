@@ -1,3 +1,11 @@
+var AWS = require('aws-sdk/');
+AWS.config.update({
+    accessKeyId: "AKIAJGWGSELDGBNZW5DA",
+    secretAccessKey: "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"
+})
+
+
+
 
 function escapeHtml(unsafe) {
     return unsafe
