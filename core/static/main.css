@@ -1,6 +1,3 @@
-* {
-    /* margin-bot/tom: 20px; */
-}
 
 nav {
     align-items: center;
@@ -87,21 +84,6 @@ nav {
 }
 
 
-/* #generated-image {
-    min-width: 100%;
-}
-#generated-image-containter {
-    display: flex;
-    justify-content: center;
-    max-width: 90%;
-}
-
-#card-img {
-    min-width: 80%;
-}
-#image-card {
-    min-width: 80%;
-} */
 #image-sidebar {
     max-width: 80px;
 }

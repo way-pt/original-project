@@ -252,26 +252,6 @@ if (newMapButton && homePage) {
 
 
 
-// if (mapLink) {
-//     console.log('ahhhh')
-//     console.log(mapLink.length)
-//     for (let m of mapLink){
-//         m.addEventListener('click', function () {
-//                 console.log('clicl')
-//                 let pk = event.target.dataset['pk'];
-//                 let csrftoken = Cookie.get('csrftoken');
-//                 fetch(`/api/map/${pk}`, {
-//                     method: 'GET',
-//                     headers: {
-//                         "Content-Type": `application/json`,
-//                         "X-CSRFToken": csrftoken
-//                     },
-//                     body: JSON.stringify(dict)
-//                 }).then(res => res.json())
-            
-//         })
-//     }
-// }
 
 if (fileUpload) {
     const dataFileInput = document.querySelector('.data-file-input');
