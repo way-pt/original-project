@@ -55,9 +55,9 @@ class AllMaps(generics.ListAPIView):
     serializer_class = MapSerializer
 
 
-class MostRecentMap(generics.ListAPIView):
-    serializer_class = MapSerializer
-    queryset = Map.objects.last()
+# class MostRecentMap(generics.ListAPIView):
+#     serializer_class = MapSerializer
+#     queryset = Map.objects.last()
 
 
 
