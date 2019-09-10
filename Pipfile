@@ -14,6 +14,8 @@ djangorestframework = "*"
 django-registration-redux = "*"
 django-cors-headers = "*"
 django-filter = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7"
