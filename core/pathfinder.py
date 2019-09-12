@@ -48,7 +48,7 @@ class Draw:
         q = 0
         for l in lines:
             q += 1
-            if not str(l[0]).isalpha() and q >= 4 and len(l)>200:
+            if q >= 4 and len(l)>200:
                 clean_line = l[0:(len(l)-1)]
                 aline = clean_line.split(" ")
                 anotherline = []
