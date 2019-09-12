@@ -20,6 +20,7 @@ django-storages = "*"
 django-environ = "*"
 django-heroku = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"
