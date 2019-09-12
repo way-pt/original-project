@@ -179,7 +179,8 @@ class GenerateMap(APIView):
 
         saved_file = new_map.data
 
-        usableData = open(Path(saved_file.url))
+        # usableData = open(Path(saved_file.url))
+        usableData = file
 
         test_map = Draw(usableData, new_map.pk)
         file_path = test_map.draw_map()
