@@ -47,6 +47,7 @@ class Draw:
         lines = file.readlines()
         q = 0
         for l in lines:
+            print(l)
             q += 1
             if q >= 4 and len(l)>200:
                 clean_line = l[0:(len(l)-1)]
