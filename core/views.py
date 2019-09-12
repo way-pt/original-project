@@ -188,7 +188,7 @@ class GenerateMap(APIView):
         f = File(new_map_image_file)
         new_map.image.save(name="elevation_map3.png", content=f)
         new_map.save()
-        print(new_map.image.path)
+        # print(new_map.imagegit )
         print(new_map.image.url)
 
         f.close()
