@@ -67,7 +67,7 @@ class Draw:
                 self.data.append(pt)
                 x +=1
             y += 1
-        
+        print(self.nest)
         self.rows = len(self.nest)
         self.columns = len(self.nest[0])
 
