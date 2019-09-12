@@ -173,7 +173,7 @@ class GenerateMap(APIView):
     def post(self, request, filename, format=None):
         data_file = request.data['file']
         # file = open(Path(data_file, 'r'))
-        file = data_file.open(mode='r')
+        file = data_file.open(mode='r+b')
         new_map = Map.objects.create()
         new_map.data.save(name='data' + str(new_map.pk) + '.txt', content=file)
 
@@ -185,7 +185,8 @@ class GenerateMap(APIView):
         # usableData = open(Path(saved_file.url))
         # usableData = data_file.read()
         # usableData.open()
-        usableData = new_map.data.open(mode='b')
+        usableData = new_map.data.open(mode='r+b')
+        print(usableData)
         # usableData = open(new_map.data.file, 'rb')
 
 
