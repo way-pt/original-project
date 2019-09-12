@@ -50,11 +50,11 @@ class Draw:
             q += 1
             if q >= 4 and len(l)>200:
                 clean_line = l[0:(len(l)-1)]
-                aline = clean_line.split(" ")
+                aline = clean_line.split(b' ')
                 anotherline = []
                 if aline != []:
                     for i in aline:
-                        if i != "":
+                        if i != b"":
                             anotherline.append(int(i))
                 if anotherline != []:
                     self.nest.append(anotherline)
@@ -67,7 +67,7 @@ class Draw:
                 self.data.append(pt)
                 x +=1
             y += 1
-        print(self.nest)
+        # print(self.nest)
         self.rows = len(self.nest)
         self.columns = len(self.nest[0])
 
