@@ -1,27 +1,24 @@
-const dotenv = require('dotenv');
-console.log(dotenv.config());
-console.log(process.env.AWS_ACCESS_ID_KEY)
-console.log(`${process.env.AWS_SECRET_ACCESS_KEY}`)
 
 
 
-var AWS = require('aws-sdk/');
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_ID_KEY,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-});
-// var s3 = new AWS.S3({params: {Bucket: 'myBucket'}});
 
-AWS.config.update({region: 'us-east-2'});
-var s3 = new AWS.S3({params: {Bucket: 'pathfinder-dz'}, apiVersion: '2006-03-01'});
+// var AWS = require('aws-sdk/');
+// AWS.config.update({
+//     accessKeyId: process.env.AWS_ACCESS_ID_KEY,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// });
+// // var s3 = new AWS.S3({params: {Bucket: 'myBucket'}});
 
-s3.getObject({Bucket: 'pathfinder-dz', Key: 'photos/elevation_map3.png'}, function(err, data) {
-    if (err) {
-      console.log("Error", err);
-    } else if (data) {
-      console.log("Success", JSON.stringify(data));
-    }
-  });
+// AWS.config.update({region: 'us-east-2'});
+// var s3 = new AWS.S3({params: {Bucket: 'pathfinder-dz'}, apiVersion: '2006-03-01'});
+
+// s3.getObject({Bucket: 'pathfinder-dz', Key: 'photos/elevation_map3.png'}, function(err, data) {
+//     if (err) {
+//       console.log("Error", err);
+//     } else if (data) {
+//       console.log("Success", JSON.stringify(data));
+//     }
+//   });
 
 
 
@@ -321,5 +318,15 @@ document.querySelector("#map-name-input-field").addEventListener("keyup", event 
 
 
 window.addEventListener('DOMContentLoaded', function() {
+    // console.log(process.cwd())
+    // const dotenv = require('dotenv');
+    // // let result = dotenv.config();
+    // // if (result.error) {
+    // //     throw result.error;
+    // // }
+    // // console.log(result.parsed);
+
+    // console.log(process.env.AWS_ACCESS_ID_KEY)
+    // console.log(`${process.env.AWS_SECRET_ACCESS_KEY}`)
     showHomePage();
 })

@@ -152,7 +152,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 # MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 # MEDIA_URL = "https://%s/" % (AWS_S3_CUSTOM_DOMAIN)
 
 
