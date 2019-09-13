@@ -1,14 +1,15 @@
 const dotenv = require('dotenv');
-dotenv.config()
+console.log(dotenv.config());
 console.log(process.env.AWS_ACCESS_ID_KEY)
-console.log(`${process.env.AWS_SECRET_KEY}`)
+console.log(`${process.env.AWS_SECRET_ACCESS_KEY}`)
+
 
 
 var AWS = require('aws-sdk/');
-// AWS.config.update({
-//     accessKeyId: "",
-//     secretAccessKey: ""
-// })
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_ID_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 // var s3 = new AWS.S3({params: {Bucket: 'myBucket'}});
 
 AWS.config.update({region: 'us-east-2'});
