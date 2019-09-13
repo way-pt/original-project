@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config()
 console.log(process.env.AWS_ACCESS_ID_KEY)
-console.log(process.env.AWS_SECRET_KEY)
+console.log(`${process.env.AWS_SECRET_KEY}`)
 
 
 var AWS = require('aws-sdk/');
@@ -12,7 +12,7 @@ var AWS = require('aws-sdk/');
 // var s3 = new AWS.S3({params: {Bucket: 'myBucket'}});
 
 AWS.config.update({region: 'us-east-2'});
-var s3 = new AWS.S3({params: {Bucket: 'pathfinder-dz'}});
+var s3 = new AWS.S3({params: {Bucket: 'pathfinder-dz'}, apiVersion: '2006-03-01'});
 
 s3.getObject({Bucket: 'pathfinder-dz', Key: 'photos/elevation_map3.png'}, function(err, data) {
     if (err) {
