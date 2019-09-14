@@ -258,3 +258,21 @@ def save_map(request):
     }
 
     return Response(r, status=status.HTTP_201_CREATED)
+
+
+
+@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
+@api_view(['GET'])
+def get_map_pos(request):
+    if not request.user.is_authenticated:
+        raise PermissionDenied
+    
+    pts = []
+    maps = Map.objects.filter(user=request.user)
+    for m in maps:
+        if m.lat:
+            pts += {m.pk: [m.lat, m.lng]}
+    
+    r = {'markers': pts}
+
+    return Response(r)

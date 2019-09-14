@@ -33,4 +33,5 @@ urlpatterns = [
     # path('api/recent_map/', views.latest_map, name='api-recent'),
     path('api/new_map/filename=<filename>', csrf_exempt(views.GenerateMap.as_view()), name='api-new'),
     path('api/save_map/', views.save_map, name='api-save'),
+    path('api/markers/', views.get_map_pos, name='api-markers'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
