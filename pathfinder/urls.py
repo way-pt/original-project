@@ -24,6 +24,7 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('map_view/', views.googleMapView, name='map-view'),
     path('', views.index, name="index"),
     path('api/map/<pk>', views.map_view, name='map-view'),
     path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),

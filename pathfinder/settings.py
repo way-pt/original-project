@@ -138,23 +138,16 @@ AWS_STORAGE_BUCKET_NAME = 'pathfinder-dz'
 AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_DEFAULT_ACL = None
-
-# AWS_LOCATION = 'media'
-# STATICFILES_LOCATION = 'static'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# MEDIAFILES_LOCATION = 'media'
-# DEFAULT_FILE_STORAGE = 'pathfinder.storage_backends.MediaStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 STATIC_URL = "/static/"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-# MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, 'media')
-# MEDIA_URL = '/media/'
-# MEDIA_URL = "https://%s/" % (AWS_S3_CUSTOM_DOMAIN)
 
+# Google Cloud Platform
+
+GCP_SECRET_KEY = os.environ.get('GCP_SECRET_KEY')
 
 
 ACCOUNT_ACTIVATION_DAYS = 7

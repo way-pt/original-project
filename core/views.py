@@ -19,6 +19,8 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from pathfinder.settings import GCP_SECRET_KEY
+
 # Create your views here.
 
 def index(request):
@@ -29,6 +31,11 @@ def index(request):
     return render(request, "base.html", {'map': new_map})
 
  
+def googleMapView(request):
+    secret_key = f"https://maps.googleapis.com/maps/api/js?key={GCP_SECRET_KEY}&callback=initMap"
+    context = {'secret_key': secret_key}
+
+    return render(request, 'google_maps.html', context)
 
 
 
