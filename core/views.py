@@ -32,7 +32,7 @@ def index(request):
 
  
 def googleMapView(request):
-    secret_key = GCP_SECRET_KEY
+    secret_key = f"https://maps.googleapis.com/maps/api/js?key={GCP_SECRET_KEY}&callback=initMap"
     context = {'secret_key': secret_key}
 
     return render(request, 'google_maps.html', context)
