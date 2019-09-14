@@ -19,7 +19,7 @@
 
         <script>
 
-            function initMap(){
+            function initMaps(){
               var map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 35.827, lng: -79.112},
                 zoom: 7
@@ -48,8 +48,9 @@
                       var infowindow = new google.maps.InfoWindow({
                         content: contentstring
                       });
-                      marker.addListener('click', function() {
+                      marker.addListener('click', function(event) {
                           infowindow.open(map, marker);
+                          window.alert(mark.pk);
                       });
                     }
                 })
@@ -59,7 +60,7 @@
           </script>
 
         <script async defer
-            src="{{ secret_key }}">
+            src="{{ secret_key }}s">
             </script>
       </body>
     </html>

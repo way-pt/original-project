@@ -297,6 +297,25 @@ document.querySelector("#map-name-input-field").addEventListener("keyup", event 
 if (document.querySelectorAll('.google-map-links')){
     initMapViewLinks();
 }
+if (document.querySelector('#g-map-frame')) {
+    document.querySelector('#g-map-frame').addEventListener('message', function showMapFromGMap(event) {
+        loadingNewMap.style.display = 'block';
+        
+        fetch(`/api/map/${encodeURIComponent(event.data)}`).then(res => res.json())
+        .then(function (data) {
+            console.log(data);
+            let name = data.map.name;
+            let dataURL = data.map.data_url;
+            let imageURL = data.map.image;
+            let user = data.map.user;
+            let date = data.map.date;
+            let mapPK = data.map.pk;
+            loadingNewMap.style.display = 'none';
+            content.appendChild(showGeneratedImage(imageURL, name, user));
+            $('#save-map-modal').modal('show');
+        })
+    })
+}
 
 
 window.addEventListener('DOMContentLoaded', function() {
