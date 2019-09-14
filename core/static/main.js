@@ -294,6 +294,10 @@ document.querySelector("#map-name-input-field").addEventListener("keyup", event 
     event.preventDefault()
 });
 
+if (document.querySelectorAll('.google-map-links')){
+    initMapViewLinks();
+}
+
 
 window.addEventListener('DOMContentLoaded', function() {
 

@@ -261,18 +261,22 @@ def save_map(request):
 
 
 
-@authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
-@api_view(['GET'])
-def get_map_pos(request):
-    if not request.user.is_authenticated:
-        raise PermissionDenied
-    
-    pts = []
-    maps = Map.objects.filter(user=request.user)
-    for m in maps:
-        if m.lat:
-            pts += {m.pk: [m.lat, m.lng]}
-    
-    r = {'markers': pts}
+class GetMarkers(APIView):
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    def get(self, request):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        
+        pts = []
+        maps = Map.objects.filter(user=request.user)
+        for m in maps:
+            if m.lat:
+                pts.append({
+                    'pk': m.pk,
+                    'name': m.name,
+                    'points': [m.lat, m.lng]
+                    })
+        
+        r = pts
 
-    return Response(r)
+        return Response(r)
