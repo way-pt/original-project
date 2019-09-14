@@ -17,6 +17,10 @@ class Map(models.Model):
     name = models.CharField(max_length=50, help_text="A name for the map.", null=True, blank=True)
     date = models.DateField(auto_now_add=True, null=True, blank=True)
 
+    # Google Maps marker location
+    lat = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
+    lng = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
+
 
     class Meta:
         ordering = ['-date']

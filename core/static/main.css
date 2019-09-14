@@ -7,6 +7,12 @@ nav {
     height: 50px;
     position:fixed;
 }
+.navbar-brand {
+    width: 118px;
+}
+.navbar-stuff {
+    max-height: 50px;
+}
 
 #toolbar {
     grid-area: sidebar;
@@ -15,7 +21,7 @@ nav {
     height: 100%;
     width: 150px;
     margin: 0;
-    background-color: #484F56;
+    /* background-color: #484F56; */
 }
 /* .toolbar-list {
     height: 100%;
@@ -27,6 +33,17 @@ nav {
     border-color: grey;
     font-size: 0.9em;
     padding-right: 15;
+    /* cursor: pointer; */
+}
+.toolbar-item:hover {
+    background-color: #64696F;
+    color: whitesmoke;
+}
+.space-waster {
+    height: 100%;
+    padding-bottom: 100%;
+    background-color: #484F56;
+
 }
 /* .toolbar-item a {
     color: whitesmoke;
@@ -36,7 +53,6 @@ nav {
     grid-area: main;
     margin: 0 20px;
     margin-top: 20px;
-    padding-right: 170px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -118,7 +134,8 @@ nav {
 
 
 #g-map-frame {
-    max-width: 85%;
+    margin-bottom: 20px;
+    max-width: 100%;    
 }
 
 
@@ -128,4 +145,6 @@ nav {
     grid-template-rows: auto;
     grid-template-areas: "sidebar main";
     margin-top: 50px;
+    padding-right: 20px;
+
 }

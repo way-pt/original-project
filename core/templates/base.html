@@ -26,7 +26,7 @@
     </button>
   
 
-    <div class="collapse navbar-collapse shadow shadow-sm" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse shadow shadow-sm navbar-stuff" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         {% if request.user.is_authenticated %}
         <li class="nav-item">
@@ -51,11 +51,13 @@
 
   <div class="flexyflex">
 
-  <div id="toolbar">
+  <div id="toolbar bg-secondary">
     <div id="toolbar-list" class="list-group list-group-flush">
       <a href='#' class="list-group-item list-group-item-action toolbar-item">Home</a>
       <a href="#" class="list-group-item list-group-item-action toolbar-item">New Map</a>
+      
     </div>
+    <div class="space-waster"></div>
   </div>
 
   
