@@ -26,9 +26,9 @@ from pathfinder.settings import GCP_SECRET_KEY
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('auth_login'))
-    new_map = Map.objects.last()
-    print(request.user.get_username())
-    return render(request, "base.html", {'map': new_map})
+    
+    context = {'google_key': GCP_SECRET_KEY}
+    return render(request, "base.html", context)
 
  
 def googleMapView(request):

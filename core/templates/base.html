@@ -8,7 +8,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   <link rel="stylesheet" href="{% static 'main.css' %}" />
+
+  <script type="text/javascript">
+    var GOOGLE_KEY = "{{ google_key }}";
+  </script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_key }}&libraries=places"></script>
 
   <script src="{% static 'compiled.js' %}" defer></script>
   <title>Pathfinder</title>
@@ -123,13 +130,22 @@
                     
           </div>
           <div class="modal-footer">
+            <p>Add a location to this map.</p>
+              <div class="input-group mb-3 map-name-input">
+                  <input type="text" id="geoloc-search-input-field" class="form-control display-none" placeholder="Search places and addresses" aria-label="Search places and addresses" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-success map-name-submit" type="button" id="geoloc-search-submit"><i class="material-icons">
+                        search
+                        </i></button>
+                  </div>
+                </div>  
               <div class="input-group mb-3 map-name-input">
                   <div class="input-group-prepend">
                       <button class="btn btn-outline-danger" type="button" id="button-addon1" data-dismiss="modal">Discard</button>
                     </div>
                   <input type="text" id="map-name-input-field" class="form-control display-none" placeholder="Map name" aria-label="Map name" aria-describedby="button-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-success map-name-submit" type="button" id="proceed-to-save" disabled>Save</button>
+                    <button class="btn btn-outline-primary map-name-submit" type="button" id="proceed-to-save" disabled>Save</button>
                   </div>
                 </div>  
           </div>
