@@ -1,4 +1,9 @@
-
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+}
 
 
 nav {
@@ -41,7 +46,8 @@ nav {
 }
 .space-waster {
     height: 100%;
-    padding-bottom: 100%;
+    padding-top:0;
+    padding-bottom: auto;
     background-color: #484F56;
 
 }
@@ -146,5 +152,6 @@ nav {
     grid-template-areas: "sidebar main";
     margin-top: 50px;
     padding-right: 20px;
+    min-height: 100%;
 
 }

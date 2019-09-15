@@ -50,11 +50,20 @@
                       });
                       marker.addListener('click', function(event) {
                           infowindow.open(map, marker);
-                          window.alert(mark.pk);
+                          window.parent.postMessage(mark.pk, '*');
                       });
                     }
                 })
             }
+
+            // function initMapViewLinks() {
+            // let mapLink = document.querySelectorAll('.map-link');
+            //     for (let m of mapLink){
+            //         m.addEventListener('click', function (event) {
+            //                 console.log('clicl')
+            //                 let pk = event.target.dataset['pk']; })
+            //         }
+            //       }
 
             
           </script>

@@ -296,24 +296,29 @@ document.querySelector("#map-name-input-field").addEventListener("keyup", event 
 });
 
 if (document.querySelectorAll('.google-map-links')){
+    console.log('found google map links')
     initMapViewLinks();
 }
 if (document.querySelector('#g-map-frame')) {
-    document.querySelector('#g-map-frame').addEventListener('message', function showMapFromGMap(event) {
+    console.log('found iframe')
+    document.querySelector('#g-map-frame').addEventListener('popstate', function () {
+        console.log('popstate')
+    })
+    window.addEventListener('message', function showMapFromGMap(message) {
+        console.log('click')
         loadingNewMap.style.display = 'block';
         
-        fetch(`/api/map/${encodeURIComponent(event.data)}`).then(res => res.json())
+        fetch(`/api/map/${encodeURIComponent(message.data)}`).then(res => res.json())
         .then(function (data) {
-            console.log(data);
-            let name = data.map.name;
-            let dataURL = data.map.data_url;
-            let imageURL = data.map.image;
-            let user = data.map.user;
-            let date = data.map.date;
-            let mapPK = data.map.pk;
-            loadingNewMap.style.display = 'none';
-            content.appendChild(showGeneratedImage(imageURL, name, user));
-            $('#save-map-modal').modal('show');
+            // console.log(data);
+            // let name = data.map.name;
+            // let dataURL = data.map.data_url;
+            // let imageURL = data.map.image;
+            // let user = data.map.user;
+            // let date = data.map.date;
+            // let mapPK = data.map.pk;
+            hide(content);
+            content.appendChild(showGeneratedImage(data.image, data.name, data.data_file, data.date));
         })
     })
 }
