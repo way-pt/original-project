@@ -9,7 +9,6 @@ body {
 nav {
     align-items: center;
     margin: 0;
-    height: 50px;
     position:fixed;
 }
 .navbar-brand {
