@@ -21,16 +21,13 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
     <a class="navbar-brand" href="{% url 'index' %}">Pathfinder</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
   
 
-    <div class="collapse navbar-collapse shadow shadow-sm navbar-stuff" id="navbarSupportedContent">
+    <div class="shadow shadow-sm navbar-stuff" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         {% if request.user.is_authenticated %}
         <li class="nav-item">
-            <p class="nav-link" id="loggedIn" data-username="{{ user.pk }}"
+            <p class="nav-item" id="loggedIn" data-username="{{ user.pk }}"
             data-userstring="{{ user.username }}">Logged in as {{ request.user }}</p>
           </li>
           <li class="nav-item">
