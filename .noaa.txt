@@ -1,0 +1,3 @@
+https://gis.ngdc.noaa.gov/cgi-bin/public/wcs/etopo1.asc?filename=etopo1.asc&request=getcoverage&version=1.0.0&service=wcs&coverage=etopo1&CRS=EPSG:4326&format=aaigrid&resx=0.016666666666666667&resy=0.016666666666666667&bbox=-107.5416666666666688175,35.8916666666666673845,-101.9250000000000020385,39.1750000000000007835
+
+
