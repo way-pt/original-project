@@ -38,6 +38,12 @@ const userMapsList = document.querySelector('#user-maps-list');
 const backButton = document.querySelector('#back-button');
 const googleMap = document.getElementById('google-map');
 const placesSearchInput = document.getElementById('geoloc-search-input-field');
+const latLngSubmit = document.getElementById('lat-lng-submit');
+const latInput1 = document.getElementById('lat-input1');
+const lngInput1 = document.getElementById('lng-input1');
+const latInput2 = document.getElementById('lat-input2');
+const lngInput2 = document.getElementById('lng-input2');
+
 // const mapLink = document.querySelectorAll('.map-link');
 
 
@@ -217,6 +223,46 @@ function promptMapSave(mapPK) {
     })   
 }
 
+function getDataGrid (lat1, lng1, lat2, lng2) {
+    let delta = lat1-lat2;
+    let res;
+    if (delta < 20) {
+        res = delta / 400;
+    } else { res = 0.016666666667 }
+    
+    fetch(`https://gis.ngdc.noaa.gov/cgi-bin/public/wcs/etopo1.asc?filename=etopo1.asc&request=getcoverage&version=1.0.0&service=wcs&coverage=etopo1&CRS=EPSG:4326&format=aaigrid&resx=${res}&resy=${res}&bbox=${lat1},${lng1},${lat2},${lng2}`)
+    .then(res => res.text())
+    .then(function (data) {
+        console.log(data);
+
+        // var formData = new FormData();
+        // formData.append('data', data);
+        // hide(content);
+        // loadingNewMap.style.display = 'block';
+        // fetch(`/api/new_map/filename=etopo1.asc`, {
+        //     method: 'POST',
+        //     headers: {
+        //         "Content-Disposition": `form-data;name=name; filename=etopo1.asc`
+        //     },
+        //     body: formData
+        // }).then(res => res.json())
+        // .then(function (data) {
+        //     console.log(data);
+        //     loadingNewMap.style.display = 'none';
+        //     let imageURL = data.newMap.image;
+        //     content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
+        //     promptMapSave(data.newMap.pk);
+        // })f
+
+    })
+}
+if (latLngSubmit) {
+    latLngSubmit.addEventListener('click', function () {
+        getDataGrid(latInput1.value, lngInput1.value, latInput2.value, lngInput2.value);
+    })
+}
+
+
 function showBackButton() {
     backButton.style.display = 'block';
     backButton.addEventListener('click', function () {
@@ -329,6 +375,8 @@ if (document.querySelector('#g-map-frame')) {
         })
     })
 }
+
+
 
 
 window.addEventListener('DOMContentLoaded', function() {

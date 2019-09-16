@@ -88,6 +88,19 @@
         <button id="new-map" type="button" class="btn btn-outline-success">New Map</button>
         <button id="user-maps" type="button" class="btn btn-outline-secondary">Your Maps</button>
         <button id="show-most-recent" type="button" class="btn btn-outline-secondary">Show Most Recent</button>
+        <br>
+        
+        <div id="lat-lng-input" class="input-group mb3">
+          <input id="lat-input1" type="number" min="-90" max="90" step="0.1" class="form-control">
+          <input id="lng-input1" type="number" min="-90" max="90" step="0.1" class="form-control">
+          <input id="lat-input2" type="number" min="-90" max="90" step="0.1" class="form-control">
+          <input id="lng-input2" type="number" min="-90" max="90" step="0.1" class="form-control">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="lat-lng-submit">LatLng</button>
+          </div>
+          
+        </div>
+
       </div>
       <div id="home-right">
         <h2>Recent Maps</h2>
