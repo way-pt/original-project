@@ -20,7 +20,9 @@
     {% block content %}
 
   <nav class="navbar navbar-dark bg-dark shadow fixed-top">
-    <a class="navbar-brand" href="{% url 'index' %}">Pathfinder</a>
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'images/Way-pt_logo.png' %}" width="50" alt="">
+    </a>
     <div class="login-elements">
       {% if request.user.is_authenticated %}
             <span class="nav-item text-muted" id="loggedIn" data-username="{{ user.pk }}"
