@@ -25,33 +25,20 @@
 <body class="bg-light">
     {% block content %}
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
-    <a class="navbar-brand" href="{% url 'index' %}">Pathfinder</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-
-    <div class="collapse navbar-collapse shadow shadow-sm navbar-stuff" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-            <p class="nav-link" id="loggedIn" data-username="{{ user.pk }}"
-            data-userstring="{{ user.username }}">Logged in as {{ request.user }}</p>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_logout' %}">Log Out</a>
-          </li>
-        {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
-            </li>
-          {% endif %}
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search your maps..." aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-          </form>
+  <nav class="navbar navbar-dark bg-dark shadow fixed-top">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'images/Way-pt_logo.png' %}" width="50" alt=""><span class="logo-text">way.pt</span>
+    </a>
+    <div class="login-elements">
+      {% if request.user.is_authenticated %}
+            <span class="nav-item text-muted" id="loggedIn" data-username="{{ user.pk }}"
+            data-userstring="{{ user.username }}">Hi {{ request.user }}</span>
+            <a class="nav-link pr-0 pt-0 pb-0 text-right text-light" href="{% url 'auth_logout' %}">Log Out</a>
+      {% else %}
+        <span class="nav-item">
+          <a class="nav-link pr-0 pt-0 pb-0 text-right text-light" href="{% url 'auth_login' %}">Login</a>
+        </span>
+      {% endif %}
     </div>
   </nav>
 
