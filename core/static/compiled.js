@@ -231,28 +231,27 @@ function getDataGrid (lat1, lng1, lat2, lng2) {
     } else { res = 0.016666666667 }
     
     fetch(`https://gis.ngdc.noaa.gov/cgi-bin/public/wcs/etopo1.asc?filename=etopo1.asc&request=getcoverage&version=1.0.0&service=wcs&coverage=etopo1&CRS=EPSG:4326&format=aaigrid&resx=${res}&resy=${res}&bbox=${lat1},${lng1},${lat2},${lng2}`)
-    .then(res => res.text())
+    .then(body => body.blob())
     .then(function (data) {
         console.log(data);
-
-        // var formData = new FormData();
-        // formData.append('data', data);
-        // hide(content);
-        // loadingNewMap.style.display = 'block';
-        // fetch(`/api/new_map/filename=etopo1.asc`, {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-Disposition": `form-data;name=name; filename=etopo1.asc`
-        //     },
-        //     body: formData
-        // }).then(res => res.json())
-        // .then(function (data) {
-        //     console.log(data);
-        //     loadingNewMap.style.display = 'none';
-        //     let imageURL = data.newMap.image;
-        //     content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
-        //     promptMapSave(data.newMap.pk);
-        // })f
+        var formData = new FormData();
+        formData.append('data', data);
+        hide(content);
+        loadingNewMap.style.display = 'block';
+        fetch(`/api/new_map/filename=etopo1.asc`, {
+            method: 'POST',
+            headers: {
+                "Content-Disposition": `form-data;name=name; filename=etopo1.asc`
+            },
+            body: formData
+        }).then(res => res.json())
+        .then(function (data) {
+            console.log(data);
+            loadingNewMap.style.display = 'none';
+            let imageURL = data.newMap.image;
+            content.appendChild(showGeneratedImage(imageURL, null, copyUsername));
+            promptMapSave(data.newMap.pk);
+        })
 
     })
 }
