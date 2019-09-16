@@ -23,12 +23,12 @@
     <a class="navbar-brand" href="{% url 'index' %}">Pathfinder</a>
     <div class="login-elements">
       {% if request.user.is_authenticated %}
-            <span class="nav-item" id="loggedIn" data-username="{{ user.pk }}"
+            <span class="nav-item text-muted" id="loggedIn" data-username="{{ user.pk }}"
             data-userstring="{{ user.username }}">Hi {{ request.user }}</span>
-            <a class="nav-link pr-0 pt-0 pb-0 text-right" href="{% url 'auth_logout' %}">Log Out</a>
+            <a class="nav-link pr-0 pt-0 pb-0 text-right text-light" href="{% url 'auth_logout' %}">Log Out</a>
       {% else %}
         <span class="nav-item">
-          <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+          <a class="nav-link pr-0 pt-0 pb-0 text-right text-light" href="{% url 'auth_login' %}">Login</a>
         </span>
       {% endif %}
     </div>
