@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import DataProvider from "./DataProvider";
-import Table from "./Table";
+import MapView from "./MapView";
 const App = () => (
-  <DataProvider endpoint="api/map/35" 
-                render={data => <Table data={data} />} />
+  <DataProvider endpoint="api/map/30" 
+                render={data => <MapView data={data} />} />
 );
 const wrapper = document.getElementById("app");
 wrapper ? ReactDOM.render(<App />, wrapper) : null;

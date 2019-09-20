@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-const Cookie = require('js-cookie');
+import Cookies from 'js-cookie';
 
 class DataProvider extends Component {
   static propTypes = {
@@ -13,7 +13,7 @@ class DataProvider extends Component {
       placeholder: "Loading..."
     };
   componentDidMount() {
-    let csrftoken = Cookie.get('csrftoken');
+    let csrftoken = Cookies.get('csrftoken');
     fetch(this.props.endpoint, {
         headers: { "X-CSRFToken": csrftoken }
     })

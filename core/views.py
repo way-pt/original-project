@@ -147,13 +147,13 @@ def user_recents(request):
 @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
 @api_view(['GET'])
 def map_view(request, pk):
-    if not request.user.is_authenticated:
-        raise PermissionDenied
+    # if not request.user.is_authenticated:
+    #     raise PermissionDenied
 
     m = Map.objects.get(pk=pk)
 
-    if not m.user == request.user:
-        raise PermissionDenied
+    # if not m.user == request.user:
+    #     raise PermissionDenied
 
     r = {
             'name': m.name,
