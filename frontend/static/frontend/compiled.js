@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module '/Users/dzord/Dropbox/codeprojects/Python/pathfinder/frontend/src/index.js' from '/Users/dzord/Dropbox/codeprojects/Python/pathfinder'");

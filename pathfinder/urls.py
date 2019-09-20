@@ -19,19 +19,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.decorators.csrf import csrf_exempt
 
-from core import views
+import core.views
+import frontend.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('map_view/', views.googleMapView, name='map-view'),
-    path('', views.index, name="index"),
-    path('api/map/<pk>', views.map_view, name='map-view'),
-    path('api/all_maps/', views.AllMaps.as_view(), name="api-all"),
-    path('api/user_maps/<user>', views.user_maps, name='api-user'),
-    path('api/user_recents/', views.user_recents, name='api-user-recents'),
+    path('map_view/', core.views.googleMapView, name='map-view'),
+    path('', frontend.views.index, name="index"),
+    path('api/map/<pk>', core.views.map_view, name='map-view'),
+    path('api/all_maps/', core.views.AllMaps.as_view(), name="api-all"),
+    path('api/user_maps/<user>', core.views.user_maps, name='api-user'),
+    path('api/user_recents/', core.views.user_recents, name='api-user-recents'),
     # path('api/recent_map/', views.latest_map, name='api-recent'),
-    path('api/new_map/filename=<filename>', csrf_exempt(views.GenerateMap.as_view()), name='api-new'),
-    path('api/save_map/', views.save_map, name='api-save'),
-    path('api/markers/', views.GetMarkers.as_view(), name='api-markers'),
+    path('api/new_map/filename=<filename>', csrf_exempt(core.views.GenerateMap.as_view()), name='api-new'),
+    path('api/save_map/', core.views.save_map, name='api-save'),
+    path('api/markers/', core.views.GetMarkers.as_view(), name='api-markers'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
