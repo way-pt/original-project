@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.core.files import File
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from core.models import Map
@@ -29,6 +29,23 @@ def index(request):
     
     context = {'google_key': GCP_SECRET_KEY}
     return render(request, "base.html", context)
+
+
+def map_detail_view(request, pk):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('auth_login')
+    m = get_object_or_404(Map, pk=pk)
+    context = {
+        'name': m.name,
+        'user': m.user.pk,
+        'user_username': m.user.get_username(),
+        'data_file': m.data.name,
+        'image': m.image.url,
+        'date': str(m.date),
+        'pk': m.pk
+    }
+
+    return render(request, 'map_view.html', context)
 
  
 def googleMapView(request):
