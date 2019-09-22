@@ -5,3 +5,4 @@ media/
 .env
 .vscode
 core/static/.env
+core/static/js-cookie.js
