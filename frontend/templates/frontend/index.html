@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,14 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'frontend/main.css' %}" />
+
   <title>Way.pt</title>
 </head>
 <body>
+    <nav class="navbar navbar-dark bg-dark shadow fixed-top">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'images/Way-pt_logo.png' %}" width="50" alt=""><span class="logo-text">way.pt</span>
+        </a>
+        <div class="login-elements">
+          {% if request.user.is_authenticated %}
+                <span class="nav-item text-muted" id="loggedIn" data-username="{{ user.pk }}"
+                data-userstring="{{ user.username }}">Hi {{ request.user }}</span>
+                <a class="nav-link pr-0 pt-0 pb-0 text-right text-light" href="{% url 'auth_logout' %}">Log Out</a>
+          {% else %}
+            <span class="nav-item">
+              <a class="nav-link pr-0 pt-0 pb-0 text-right text-light" href="{% url 'auth_login' %}">Login</a>
+            </span>
+          {% endif %}
+        </div>
+      </nav>
+
+  <div id="content">
   <section class="section">
     <div class="container">
           <div id="app" class="columns"></div>
     </div>
   </section>
+</div>
 </body>
 {% load static %}
 <script src="{% static 'frontend/compiled.js' %}"></script>

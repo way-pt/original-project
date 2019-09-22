@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+
+
+.logo-text{
+    font-family: 'Permanent Marker', cursive;
+}
+
+nav {
+    align-items: center;
+    margin: 0;
+    position:fixed;
+}
+.navbar-brand {
+    width: 118px;
+}
+.navbar-stuff {
+    max-height: 50px;
+}
+
+#content {
+    margin: 0 20px;
+    margin-top: 90px;
+}
