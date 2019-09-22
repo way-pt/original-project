@@ -21,8 +21,7 @@ class Map(models.Model):
     lat = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
     lng = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
 
-    def __str__(self):
-        return f'[{self.user.username}] {self.name}  -  {self.date}  -  {self.pk}'
+
 
     class Meta:
         ordering = ['-date']

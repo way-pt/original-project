@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'frontend',
     'storages',
 ]
 
@@ -126,7 +127,7 @@ USE_TZ = True
 
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "core/static"),
+    os.path.join(BASE_DIR, "frontend/static"),
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

@@ -1,10 +1,11 @@
+import os
 from pathlib import Path
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.core.files import File
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from core.models import Map
@@ -29,6 +30,23 @@ def index(request):
     
     context = {'google_key': GCP_SECRET_KEY}
     return render(request, "base.html", context)
+
+
+def map_detail_view(request, pk):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('auth_login')
+    m = get_object_or_404(Map, pk=pk)
+    context = {
+        'name': m.name,
+        'user': m.user.pk,
+        'user_username': m.user.get_username(),
+        'data_file': m.data.name,
+        'image': m.image.url,
+        'date': str(m.date),
+        'pk': m.pk
+    }
+
+    return render(request, 'map_view.html', context)
 
  
 def googleMapView(request):
@@ -130,13 +148,13 @@ def user_recents(request):
 @authentication_classes([CsrfExemptSessionAuthentication, BasicAuthentication])
 @api_view(['GET'])
 def map_view(request, pk):
-    if not request.user.is_authenticated:
-        raise PermissionDenied
+    # if not request.user.is_authenticated:
+    #     raise PermissionDenied
 
     m = Map.objects.get(pk=pk)
 
-    if not m.user == request.user:
-        raise PermissionDenied
+    # if not m.user == request.user:
+    #     raise PermissionDenied
 
     r = {
             'name': m.name,
@@ -179,23 +197,12 @@ class GenerateMap(APIView):
 
     def post(self, request, filename, format=None):
         data_file = request.data['file']
-        # file = open(Path(data_file, 'r'))
         file = data_file.open(mode='r+b')
         new_map = Map.objects.create()
         new_map.data.save(name='data' + str(new_map.pk) + '.txt', content=file)
 
-        saved_file = new_map.data
-
-        print("file: ", file)
-        print('data_file: ', data_file)
-
-        # usableData = open(Path(saved_file.url))
-        # usableData = data_file.read()
-        # usableData.open()
         usableData = new_map.data.open(mode='r+b')
         print(usableData)
-        # usableData = open(new_map.data.file, 'rb')
-
 
         test_map = Draw(usableData, new_map.pk)
         file_path = test_map.draw_map()
@@ -204,12 +211,13 @@ class GenerateMap(APIView):
         f = File(new_map_image_file)
         new_map.image.save(name='elevation_map' + str(new_map.pk) + '.png', content=f)
         new_map.save()
-        # print(new_map.imagegit )
         print(new_map.image.url)
 
         f.close()
         new_map_image_file.close()
         usableData.close()
+
+        os.remove(file_path)
 
         r = {"newMap": {
             "pk": str(new_map.pk),
