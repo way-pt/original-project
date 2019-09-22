@@ -6,3 +6,4 @@ media/
 .vscode
 core/static/.env
 core/static/js-cookie.js
+core/static/compiled.js
