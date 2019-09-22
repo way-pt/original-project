@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-dark bg-dark shadow fixed-top">
         <a class="navbar-brand" href="{% url 'index' %}">
-          <img src="{% static 'images/Way-pt_logo.png' %}" width="50" alt=""><span class="logo-text">way.pt</span>
+          <img src="{% static 'frontend/images/Way-pt_logo.png' %}" width="50" alt=""><span class="logo-text">way.pt</span>
         </a>
         <div class="login-elements">
           {% if request.user.is_authenticated %}
@@ -36,6 +36,5 @@
   </section>
 </div>
 </body>
-{% load static %}
 <script src="{% static 'frontend/compiled.js' %}"></script>
 </html>

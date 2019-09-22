@@ -18,8 +18,10 @@
         "watchify": "^3.11.1"
     },
     "scripts": {
+        "start": "npm-run-all -p dev django",
         "dev": "webpack --mode development ./frontend/src/index.js --output ./frontend/static/frontend/compiled.js",
-        "build": "webpack --mode production ./frontend/src/index.js --output ./frontend/static/frontend/compiled.js"
+        "build": "webpack --mode production ./frontend/src/index.js --output ./frontend/static/frontend/compiled.js",
+        "django": "python3 manage.py runserver"
     },
     "devDependencies": {
         "@babel/core": "^7.6.0",
@@ -30,6 +32,7 @@
         "prop-types": "^15.7.2",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
+        "weak-key": "^1.0.1",
         "webpack": "^4.40.2",
         "webpack-cli": "^3.3.9"
     }

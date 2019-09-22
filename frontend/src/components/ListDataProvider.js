@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Cookies from 'js-cookie';
 
-class DataProvider extends Component {
+class ListDataProvider extends Component {
   static propTypes = {
     endpoint: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired
@@ -30,4 +30,4 @@ class DataProvider extends Component {
     return loaded ? this.props.render(data) : <p>{placeholder}</p>;
   }
 }
-export default DataProvider;
+export default ListDataProvider;
