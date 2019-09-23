@@ -5,16 +5,27 @@
 ## Tech
 
 Frontend:
+
 > React.js
+
 > Bootstrap
+
 > Node.js
+
 > Google Cloud Services
+
 > Webpack
+
 > Babel
+
 Backend:
+
 > Django REST Framework
+
 > AWS S3 Cloud file storage
+
 > Whitenoise for serving static files 
+
 
 ## Cloning This Repository
 
